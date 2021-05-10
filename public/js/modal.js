@@ -26,6 +26,7 @@ function cloneHandler(item){
     del.type="button"
     del.addEventListener('click',delCloneHandler)
     cloneObject.classList.remove('clone')
+    cloneObject.classList.add('cloneObj')
     cloneObject.querySelector('.num').innerHTML='# '+String(num+1)
     cloneObject.querySelector('.num').append(del)
     cloneObject.querySelectorAll('input').forEach(function (item){

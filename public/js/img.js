@@ -5,7 +5,7 @@ function handleFileSelect(evt) {
     const img = evt.target.parentNode.parentNode.parentNode.querySelector('.main-img[src]')// IMG
     const f = file[0];
     // Only process image files.
-        if (!file.length || !f.type.match('image/jpeg','image/png')) {
+        if (!file.length || (!f.type.match('image/jpeg') && !f.type.match('image/png'))) {
             img.src = ''
             img.alt = ''
             img.title = ''
@@ -45,7 +45,7 @@ function handleFileMultiSelect(evt) {
         div.classList.remove('hidden')
         for (let i = 0, f; f = files[i]; i++) {
             // Only process image files.
-            if (!f.type.match('image/jpeg','image/png')) {
+            if ((!f.type.match('image/jpeg') && !f.type.match('image/png'))) {
                 files.splice(i,1)
             } else {
                 const reader = new FileReader();
@@ -54,9 +54,7 @@ function handleFileMultiSelect(evt) {
                     return function (e) {
                         // Render thumbnail.
                         const span = document.createElement('span');
-                        span.innerHTML = ['<img class="h-12 w-12 cursor-pointer" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
-                        span.dataset.toggle='#imgModal'
-                        span.addEventListener('click',imgModalHandler)
+                        span.innerHTML = ['<img class="h-12 w-12 cursor-pointer" data-toggle="#imgModal" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
                         div.append(span);
                     };
                 })(f);
@@ -68,7 +66,6 @@ function handleFileMultiSelect(evt) {
 }
 
 function imgModalHandler(e){
-    console.log(e.target)
     const img= e.target.cloneNode(true)
     const name = img.title
     const modal = document.getElementById('imgModal')
@@ -80,5 +77,18 @@ function imgModalHandler(e){
     modal.querySelector('.modal_body').append(img)
 }
 
-document.querySelector('.main-img[type="file"]').addEventListener('change', handleFileSelect, false);
-document.querySelector('.sec-img[type="file"]').addEventListener('change', handleFileMultiSelect, false);
+
+document.querySelector('.container').addEventListener('change',function (e){
+    if(e.target && e.target.matches('.main-img[type="file"]')){
+        handleFileSelect(e)
+    }
+    if(e.target && e.target.matches('.sec-img[type="file"]')){
+        handleFileMultiSelect(e)
+    }
+})
+
+document.querySelector('.container').addEventListener('click',function (e){
+    if(e.target && e.target.matches('img[data-toggle="#imgModal"]')){
+        imgModalHandler(e)
+    }
+})

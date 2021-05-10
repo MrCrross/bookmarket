@@ -26,6 +26,7 @@ class CreateProductGenresTable extends Migration
                 ->on('genres')
                 ->onDelete('CASCADE');
             $table->timestamps();
+            $table->primary(['product_id', 'genre_id'], 'product_genres_product_id_genre_id_primary');
         });
     }
 

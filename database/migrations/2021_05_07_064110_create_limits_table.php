@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Limit;
 
 class CreateLimitsTable extends Migration
 {
@@ -18,6 +19,21 @@ class CreateLimitsTable extends Migration
             $table->string('name',3)->unique();
             $table->timestamps();
         });
+
+        $limits=[
+          '0+',
+          '3+',
+          '6+',
+          '10+',
+          '12+',
+          '16+',
+          '18+'
+        ];
+        foreach ($limits as $limit){
+            Limit::create([
+                'name'=>$limit
+            ]);
+        }
     }
 
     /**
