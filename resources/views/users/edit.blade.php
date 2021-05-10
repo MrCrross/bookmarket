@@ -3,10 +3,10 @@
     <x-slot name="header">
         <div class="mb-5">
             <div class="float-left">
-                <h2 class="text-xl">Редактировать пользователя</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight ">Редактировать пользователя</h2>
             </div>
             <div class="float-right">
-                <x-a.primary href="{{ route('users.index') }}"> Назад</x-a.primary>
+                <x-a  href="{{ route('users.index') }}"> Назад</x-a>
             </div>
         </div>
     </x-slot>
@@ -58,9 +58,9 @@
                                  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full','multiple')) !!}
             </div>
             <div class="flex items-center justify-center mt-4">
-                <x-btn.primary>
+                <x-btn type="submit">
                     {{ __('Отправить') }}
-                </x-btn.primary>
+                </x-btn>
             </div>
         </div>
     </div>

@@ -18,12 +18,8 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return view('shop');
+})->name('shop');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('products', [ProductController::class, 'index'])->name('products');

@@ -3,11 +3,11 @@
     <x-slot name="header">
         <div class="mb-5">
             <div class="float-left">
-                <h2 class="text-xl">Управление пользователями</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight ">Управление пользователями</h2>
             </div>
             <div class="float-right">
                 @can('role-create')
-                    <x-a.success href="{{ route('users.create') }}">Зарегистрировать пользователя</x-a.success>
+                    <x-a body="success" href="{{ route('users.create') }}">Зарегистрировать пользователя</x-a>
                 @endcan
             </div>
         </div>
@@ -42,10 +42,10 @@
               @endif
             </td>
             <td class="border-2 border-gray-400 px-4 py-2">
-                <x-a.info href="{{ route('users.show',$user->id) }}">Посмотреть</x-a.info>
-                <x-a.primary href="{{ route('users.edit',$user->id) }}">&#128393;</x-a.primary>
+                <x-a body="info" href="{{ route('users.show',$user->id) }}">Посмотреть</x-a>
+                <x-a href="{{ route('users.edit',$user->id) }}">&#128393;</x-a>
                 {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                    <x-btn.danger type="submit">&times;</x-btn.danger>
+                    <x-btn body="danger" type="submit">&times;</x-btn>
                 {!! Form::close() !!}
             </td>
           </tr>

@@ -2,14 +2,14 @@
 <x-slot name="header">
     <div class="mb-10">
         <div class="float-left">
-            <h2 class="text-xl mr-5">Продукты</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight mr-5">Продукты</h2>
         </div>
         <div class="float-right">
             <div class="inline-flex flex-row justify-start items-center">
                 <x-input class="rounded-r-none" type="search" placeholder="Найти"/>
-                <x-btn. id="search" body="gray" class="ml-0 rounded-l-none" title="Найти">
+                <x-btn id="search" body="gray" class="ml-0 rounded-l-none" title="Найти">
                     <img class="w-7" src="{{asset('storage/images/icons/search.svg')}}" alt="Найти">
-                </x-btn.>
+                </x-btn>
             </div>
         </div>
     </div>
@@ -111,9 +111,9 @@
                                     @endforeach
                                 </select>
                                 @can('author-create')
-                                <x-a. body="success" data-toggle="#authorCreate" title="Добавить автора">
+                                <x-a body="success" data-toggle="#authorCreate" title="Добавить автора">
                                     <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить автора">
-                                </x-a.>
+                                </x-a>
                                 @endcan
                             </div>
                         </div>
@@ -127,9 +127,9 @@
                                     @endforeach
                                 </select>
                                 @can('publisher-create')
-                                <x-a. body="success" data-toggle="#publisherCreate" title="Добавить издательство">
+                                <x-a body="success" data-toggle="#publisherCreate" title="Добавить издательство">
                                     <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить издательство">
-                                </x-a.>
+                                </x-a>
                                 @endcan
                             </div>
                         </div>
@@ -143,11 +143,11 @@
                                     @endforeach
                                 </select>
                                 @can('genre-create')
-                                <x-a. body="success" data-toggle="#genreCreate" title="Добавить новый жанр">
+                                <x-a body="success" data-toggle="#genreCreate" title="Добавить новый жанр">
                                     <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить жанр">
-                                </x-a.>
+                                </x-a>
                                 @endcan
-                                <x-btn. body="primary" class="addGenre" title="Добавить eшё один жанр">+</x-btn.>
+                                <x-btn class="addGenre" title="Добавить eшё один жанр">+</x-btn>
                             </div>
                         </div>
                     </div>
@@ -158,12 +158,12 @@
 
         </div>
         <div class="flex items-center justify-center mb-4">
-            <x-btn.primary class="addClone">
+            <x-btn class="addClone">
                 {{ __('Добавить ещё') }}
-            </x-btn.primary>
-            <x-btn.primary type="submit">
+            </x-btn>
+            <x-btn type="submit">
                 {{ __('Сохранить') }}
-            </x-btn.primary>
+            </x-btn>
         </div>
     {{Form::close()}}
 {{-- Заготовка для обновления страницы--}}
@@ -171,9 +171,9 @@
     {{--        Данные продукта--}}
     <div class="flex items-center justify-center mt-2">
         <p class="num font-semibold italic"></p>
-        <x-a. body="danger" title="Удалить товар" data-toggle="#productDelete">
+        <x-a body="danger" title="Удалить товар" data-toggle="#productDelete">
             <img class="w-3" data-toggle="#productDelete" src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить товар">
-        </x-a.>
+        </x-a>
         <input type="text" name="id" class="hidden" value="" readonly required>
     </div>
     <div class="block md:flex md:flex-row w-full mt-5 mx-auto">
@@ -191,7 +191,7 @@
                     </span>
                 </div>
                 @can('product-edit')
-                    <x-btn.primary class="product-edit w-full md:w-8 my-2">&#128393;</x-btn.primary>
+                    <x-btn class="product-edit w-full md:w-8 my-2">&#128393;</x-btn>
                     <div class="product-contentEdit inline-flex items-center justify-center mt-2 hidden">
                         <label class="w-1/6 md:w-1/3 flex flex-col p-2 mr-2 rounded-full text-blue-200 cursor-pointer bg-blue-200" title="Добавить изображение">
                             <svg height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +204,7 @@
                             <img class="w-5" src="{{asset('storage/images/icons/image-plus.svg')}}" alt="Добавить больше изображений">
                             <input type='file' name="images[]" class="sec-img hidden" accept="image/jpeg, image/png" multiple />
                         </label>
-                        <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                        <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                     </div>
                 @endcan
             </div>
@@ -226,7 +226,7 @@
                                      maxLength="17" minLength="17" value=""
                                      pattern="[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}"
                                      placeholder="ISBN" />
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -241,7 +241,7 @@
                     @can('product-edit')
                         <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                             <x-input class="w-full" type="text" name="name" value="" placeholder="Название"/>
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -257,7 +257,7 @@
                         <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                             <x-input class="w-full" type="number" name="price"
                                      placeholder="Стоимость" min="0" value="" />
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -273,7 +273,7 @@
                         <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                             <x-input class="w-full" type="number" name="pages"
                                      placeholder="Кол-во страниц" min="0" value="" />
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -290,7 +290,7 @@
                             <x-input class="w-full" type="number" name="year_release"
                                      placeholder="Год издания" min="1900" max="2100" pattern="[0-9]{4}"
                                      value=""/>
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -310,7 +310,7 @@
                                     <option value="{{$limit->id}}">{{$limit->name}}</option>
                                 @endforeach
                             </select>
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -331,23 +331,23 @@
                                 @endforeach
                             </select>
                             @can('author-delete')
-                                <x-a. body="danger" data-toggle="#authorDelete" class="mx-0" title="Удалить автора">
+                                <x-a body="danger" data-toggle="#authorDelete" class="mx-0" title="Удалить автора">
                                     <img class="w-7" data-toggle="#authorDelete"
                                          src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить автора">
-                                </x-a.>
+                                </x-a>
                             @endcan
                             @can('author-edit')
-                                <x-a. body="gray" data-toggle="#authorEdit" class="mx-0" title="Изменить автора">
+                                <x-a body="gray" data-toggle="#authorEdit" class="mx-0" title="Изменить автора">
                                     <img class="w-7" data-toggle="#authorEdit"
                                          src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить автора">
-                                </x-a.>
+                                </x-a>
                             @endcan
                             @can('author-create')
-                                <x-a. body="success" class="mx-0" data-toggle="#authorCreate" title="Добавить автора">
+                                <x-a body="success" class="mx-0" data-toggle="#authorCreate" title="Добавить автора">
                                     <img class="w-7" data-toggle="#authorCreate" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить автора">
-                                </x-a.>
+                                </x-a>
                             @endcan
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -368,23 +368,23 @@
                                 @endforeach
                             </select>
                             @can('publisher-delete')
-                                <x-a. body="danger" data-toggle="#publisherDelete" class="mx-0" title="Удалить издательство">
+                                <x-a body="danger" data-toggle="#publisherDelete" class="mx-0" title="Удалить издательство">
                                     <img class="w-7" data-toggle="#publisherDelete"
                                          src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить издательство">
-                                </x-a.>
+                                </x-a>
                             @endcan
                             @can('publisher-edit')
-                                <x-a. body="gray" data-toggle="#publisherEdit" class="mx-0" title="Изменить издательство">
+                                <x-a body="gray" data-toggle="#publisherEdit" class="mx-0" title="Изменить издательство">
                                     <img class="w-7" data-toggle="#publisherEdit"
                                          src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить издательство">
-                                </x-a.>
+                                </x-a>
                             @endcan
                             @can('publisher-create')
-                                <x-a. body="success" class="mx-0" data-toggle="#publisherCreate" title="Добавить издательство">
+                                <x-a body="success" class="mx-0" data-toggle="#publisherCreate" title="Добавить издательство">
                                     <img class="w-7" data-toggle="#publisherCreate" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить издательство">
-                                </x-a.>
+                                </x-a>
                             @endcan
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -408,29 +408,29 @@
                                         @endforeach
                                     </select>
                                     @can('genre-delete')
-                                        <x-a. body="danger" data-toggle="#genreDelete" class="mx-0" title="Удалить жанр">
+                                        <x-a body="danger" data-toggle="#genreDelete" class="mx-0" title="Удалить жанр">
                                             <img class="w-7 " data-toggle="#genreDelete"
                                                  src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить жанр">
-                                        </x-a.>
+                                        </x-a>
                                     @endcan
                                     @can('genre-edit')
-                                        <x-a. body="gray" data-toggle="#genreEdit" class="mx-0" title="Изменить жанр">
+                                        <x-a body="gray" data-toggle="#genreEdit" class="mx-0" title="Изменить жанр">
                                             <img class="w-7 " data-toggle="#genreEdit"
                                                  src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить жанр">
-                                        </x-a.>
+                                        </x-a>
                                     @endcan
                                     @can('genre-create')
-                                        <x-a. body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
+                                        <x-a body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
                                             <img class="w-7" data-toggle="#genreCreate" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить жанр">
-                                        </x-a.>
+                                        </x-a>
                                     @endcan
-                                    <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                    <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                                 </div>
                             @endcan
                         </div>
                         <div class="md:inline-flex flex-row justify-between">
                                 <span class="genreLabel md:inline text-sm">
-                                    <x-btn. class="inline product-edit ml-1 " title="Добавить eшё один жанр">+</x-btn.>
+                                    <x-btn class="inline product-edit ml-1 " title="Добавить eшё один жанр">+</x-btn>
                                 </span>
                             @can('product-edit')
                                 <div class="product-contentEdit inline-flex flex-row w-full md:w-1/2 hidden">
@@ -441,24 +441,24 @@
                                         @endforeach
                                     </select>
                                     @can('genre-delete')
-                                        <x-a. body="danger" class="mx-0" title="Удалить жанр" data-toggle="#genreDelete"
+                                        <x-a body="danger" class="mx-0" title="Удалить жанр" data-toggle="#genreDelete"
                                               data-id="" data-name="">
                                             <img class="w-7 " data-toggle="#genreDelete" src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить жанр">
-                                        </x-a.>
+                                        </x-a>
                                     @endcan
                                     @can('genre-edit')
-                                        <x-a. body="gray" class="mx-0" title="Изменить жанр" data-toggle="#genreEdit"
+                                        <x-a body="gray" class="mx-0" title="Изменить жанр" data-toggle="#genreEdit"
                                               data-id="" data-name="">
                                             <img class="w-7 " data-toggle="#genreEdit" src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить жанр">
-                                        </x-a.>
+                                        </x-a>
                                     @endcan
                                     @can('genre-create')
-                                        <x-a. body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
+                                        <x-a body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
                                             <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить жанр">
-                                        </x-a.>
+                                        </x-a>
                                     @endcan
-                                    <x-btn.primary class="addGenre" title="Добавить eшё один жанр">+</x-btn.primary>
-                                    <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                    <x-btn class="addGenre" title="Добавить eшё один жанр">+</x-btn>
+                                    <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                                 </div>
                             @endcan
                         </div>
@@ -475,10 +475,10 @@
         {{--        Данные продукта--}}
         <div class="flex items-center justify-center mt-2">
             <p class="num font-semibold italic"># {{++$key}}</p>
-            <x-a. body="danger" title="Удалить товар" data-toggle="#productDelete" data-id="{{$product->id}}" data-name="{{$product->name}}">
+            <x-a body="danger" title="Удалить товар" data-toggle="#productDelete" data-id="{{$product->id}}" data-name="{{$product->name}}">
                 <img class="w-3" data-toggle="#productDelete"
                      src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить товар">
-            </x-a.>
+            </x-a>
             <input type="text" name="id" class="hidden" value="{{$product->id}}" readonly required>
         </div>
         <div class="block md:flex md:flex-row w-full mt-5 mx-auto">
@@ -502,7 +502,7 @@
                         @endforeach
                     </div>
                     @can('product-edit')
-                        <x-btn.primary class="product-edit w-full md:w-8 my-2">&#128393;</x-btn.primary>
+                        <x-btn class="product-edit w-full md:w-8 my-2">&#128393;</x-btn>
                         <div class="product-contentEdit inline-flex items-center justify-center mt-2 hidden">
                             <label class="w-1/6 relative md:w-1/3 flex flex-col p-2 mr-2 rounded-full text-blue-200 cursor-pointer bg-blue-200" title="Добавить изображение">
                                 <svg height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
@@ -515,7 +515,7 @@
                                 <img class="w-5" src="{{asset('storage/images/icons/image-plus.svg')}}" alt="Добавить больше изображений">
                                 <input type='file' name="images[]" class="sec-img hidden" accept="image/jpeg, image/png" multiple />
                             </label>
-                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
                     @endcan
                 </div>
@@ -537,7 +537,7 @@
                                          maxLength="17" minLength="17" value=""
                                          pattern="[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}"
                                          placeholder="ISBN"/>
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -552,7 +552,7 @@
                         @can('product-edit')
                             <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                                 <x-input class="w-full" type="text" name="name" value="" placeholder="Название"/>
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -568,7 +568,7 @@
                             <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                                 <x-input class="w-full" type="number" name="price"
                                         placeholder="Стоимость" min="0" value="" />
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -584,7 +584,7 @@
                             <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                                 <x-input class="w-full" type="number" name="pages"
                                          placeholder="Кол-во страниц" min="0" value="" />
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -601,7 +601,7 @@
                                 <x-input class="w-full" type="number" name="year_release"
                                          placeholder="Год издания" min="1900" max="2100" pattern="[0-9]{4}"
                                          value=""/>
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -621,7 +621,7 @@
                                         <option value="{{$limit->id}}">{{$limit->name}}</option>
                                     @endforeach
                                 </select>
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -642,29 +642,29 @@
                                     @endforeach
                                 </select>
                                 @can('author-delete')
-                                    <x-a. body="danger" class="mx-0" title="Удалить автора"
+                                    <x-a body="danger" class="mx-0" title="Удалить автора"
                                             data-toggle="#authorDelete" data-id="{{$product->author->id}}"
                                             data-first_name="{{$product->author->first_name}}"
                                             data-last_name="{{$product->author->last_name}}"
                                             data-father_name="{{$product->author->father_name}}">
                                         <img class="w-7" data-toggle="#authorDelete" src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить автора">
-                                    </x-a.>
+                                    </x-a>
                                 @endcan
                                 @can('author-edit')
-                                <x-a. body="gray" class="mx-0" title="Изменить автора"
+                                <x-a body="gray" class="mx-0" title="Изменить автора"
                                         data-toggle="#authorEdit" data-id="{{$product->author->id}}"
                                         data-first_name="{{$product->author->first_name}}"
                                         data-last_name="{{$product->author->last_name}}"
                                         data-father_name="{{$product->author->father_name}}">
                                     <img class="w-7" data-toggle="#authorEdit" src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить автора">
-                                </x-a.>
+                                </x-a>
                                 @endcan
                                 @can('author-create')
-                                <x-a. body="success" class="mx-0" data-toggle="#authorCreate" title="Добавить автора">
+                                <x-a body="success" class="mx-0" data-toggle="#authorCreate" title="Добавить автора">
                                     <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить автора">
-                                </x-a.>
+                                </x-a>
                                 @endcan
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -685,25 +685,25 @@
                                     @endforeach
                                 </select>
                                 @can('publisher-delete')
-                                    <x-a. body="danger" class="mx-0" title="Удалить издательство"
+                                    <x-a body="danger" class="mx-0" title="Удалить издательство"
                                             data-toggle="#publisherDelete" data-id="{{$product->publisher->id}}"
                                             data-name="{{$product->publisher->name}}">
                                         <img class="w-7" data-toggle="#publisherDelete" src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить издательство">
-                                    </x-a.>
+                                    </x-a>
                                 @endcan
                                 @can('publisher-edit')
-                                <x-a. body="gray" class="mx-0" title="Изменить издательство"
+                                <x-a body="gray" class="mx-0" title="Изменить издательство"
                                         data-toggle="#publisherEdit" data-id="{{$product->publisher->id}}"
                                         data-name="{{$product->publisher->name}}">
                                     <img class="w-7" data-toggle="#publisherEdit" src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить издательство">
-                                </x-a.>
+                                </x-a>
                                 @endcan
                                 @can('publisher-create')
-                                <x-a. body="success" class="mx-0" data-toggle="#publisherCreate" title="Добавить издательство">
+                                <x-a body="success" class="mx-0" data-toggle="#publisherCreate" title="Добавить издательство">
                                     <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить издательство">
-                                </x-a.>
+                                </x-a>
                                 @endcan
-                                <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
                         @endcan
                     </div>
@@ -732,23 +732,23 @@
                                                 @endforeach
                                             </select>
                                             @can('genre-delete')
-                                                <x-a. body="danger" class="mx-0" title="Удалить жанр" data-toggle="#genreDelete"
+                                                <x-a body="danger" class="mx-0" title="Удалить жанр" data-toggle="#genreDelete"
                                                         data-id="{{$genre->genre->id}}" data-name="{{$genre->genre->name}}">
                                                     <img class="w-7 " data-toggle="#genreDelete" src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить жанр">
-                                                </x-a.>
+                                                </x-a>
                                             @endcan
                                             @can('genre-edit')
-                                            <x-a. body="gray" class="mx-0" title="Изменить жанр" data-toggle="#genreEdit"
+                                            <x-a body="gray" class="mx-0" title="Изменить жанр" data-toggle="#genreEdit"
                                                     data-id="{{$genre->genre->id}}" data-name="{{$genre->genre->name}}">
                                                 <img class="w-7 " data-toggle="#genreEdit" src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить жанр">
-                                            </x-a.>
+                                            </x-a>
                                             @endcan
                                             @can('genre-create')
-                                            <x-a. body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
+                                            <x-a body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
                                                 <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить жанр">
-                                            </x-a.>
+                                            </x-a>
                                             @endcan
-                                            <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                                         </div>
                                     @endcan
                                 </div>
@@ -756,7 +756,7 @@
                             @can('genre-create')
                             <div class="md:inline-flex flex-row justify-between">
                                 <span class="genreLabel md:inline text-sm">
-                                    <x-btn. class="inline product-edit ml-1 " title="Добавить eшё один жанр">+</x-btn.>
+                                    <x-btn class="inline product-edit ml-1 " title="Добавить eшё один жанр">+</x-btn>
                                 </span>
                                 @can('product-edit')
                                     <div class="product-contentEdit inline-flex flex-row w-full md:w-1/2 hidden">
@@ -767,24 +767,24 @@
                                             @endforeach
                                         </select>
                                         @can('genre-delete')
-                                            <x-a. body="danger" class="mx-0" title="Удалить жанр" data-toggle="#genreDelete"
+                                            <x-a body="danger" class="mx-0" title="Удалить жанр" data-toggle="#genreDelete"
                                                   data-id="" data-name="">
                                                 <img class="w-7 " data-toggle="#genreDelete" src="{{asset('storage/images/icons/delete.svg')}}" alt="Удалить жанр">
-                                            </x-a.>
+                                            </x-a>
                                         @endcan
                                         @can('genre-edit')
-                                            <x-a. body="gray" class="mx-0" title="Изменить жанр" data-toggle="#genreEdit"
+                                            <x-a body="gray" class="mx-0" title="Изменить жанр" data-toggle="#genreEdit"
                                                   data-id="" data-name="">
                                                 <img class="w-7 " data-toggle="#genreEdit" src="{{asset('storage/images/icons/edit.svg')}}" alt="Изменить жанр">
-                                            </x-a.>
+                                            </x-a>
                                         @endcan
                                         @can('genre-create')
-                                            <x-a. body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
+                                            <x-a body="success" class="mx-0" data-toggle="#genreCreate" title="Добавить жанр">
                                                 <img class="w-7" src="{{asset('storage/images/icons/plus.svg')}}" alt="Добавить жанр">
-                                            </x-a.>
+                                            </x-a>
                                         @endcan
-                                        <x-btn.primary class="addGenre" title="Добавить eшё один жанр">+</x-btn.primary>
-                                        <x-btn. class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn.>
+                                        <x-btn class="addGenre" title="Добавить eшё один жанр">+</x-btn>
+                                        <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                                     </div>
                                 @endcan
                             </div>

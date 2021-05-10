@@ -3,11 +3,11 @@
     <x-slot name="header">
         <div class="mb-5">
             <div class="float-left">
-                <h2 class="text-xl">Управление ролями</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight ">Управление ролями</h2>
             </div>
             <div class="float-right">
             @can('role-create')
-                <x-a.success href="{{ route('roles.create') }}"> Создать роль</x-a.success>
+                <x-a body="success" href="{{ route('roles.create') }}"> Создать роль</x-a>
             @endcan
             </div>
         </div>
@@ -35,13 +35,13 @@
                 <td class="border-2 border-gray-400 px-4 py-2">{{ ++$i }}</td>
                 <td class="border-2 border-gray-400 px-4 py-2">{{ $role->name }}</td>
                 <td class="border-2 border-gray-400 px-4 py-2">
-                    <x-a.info href="{{ route('roles.show',$role->id) }}">Посмотреть</x-a.info>
+                    <x-a body="info" href="{{ route('roles.show',$role->id) }}">Посмотреть</x-a>
                     @can('role-edit')
-                        <x-a.primary href="{{ route('roles.edit',$role->id) }}">&#128393;</x-a.primary>
+                        <x-a  href="{{ route('roles.edit',$role->id) }}">&#128393;</x-a>
                     @endcan
                     @can('role-delete')
                         {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                        <x-btn.danger type="submit">&times;</x-btn.danger>
+                        <x-btn body="danger" type="submit">&times;</x-btn>
                         {!! Form::close() !!}
                     @endcan
                 </td>

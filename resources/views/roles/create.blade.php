@@ -3,10 +3,10 @@
     <x-slot name="header">
         <div class="mb-5">
             <div class="float-left">
-                <h2 class="text-xl">Создать роль</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight ">Создать роль</h2>
             </div>
             <div class="float-right">
-                <x-a.primary href="{{ route('roles.index') }}"> Назад</x-a.primary>
+                <x-a href="{{ route('roles.index') }}"> Назад</x-a>
             </div>
         </div>
     </x-slot>
@@ -39,7 +39,7 @@
         @endforeach
     </div>
     <div class="mt-2 text-center">
-        <x-btn.primary type="submit" class="w-full"> Отправить</x-btn.primary>
+        <x-btn type="submit" class="w-full"> Отправить</x-btn>
     </div>
 </div>
 {!! Form::close() !!}

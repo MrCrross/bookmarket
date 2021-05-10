@@ -34,6 +34,14 @@
             $color['ring']='ring-blue-600';
             $color['text']='text-gray-50';
             break;
+        case 'info':
+            $color['bg']='bg-blue-300';
+            $color['hover']='hover:bg-blue-400';
+            $color['focus']='focus:border-blue-900';
+            $color['active']='active:bg-blue-500';
+            $color['ring']='ring-blue-600';
+            $color['text']='text-black';
+            break;
     }
 ?>
 <a {{ $attributes->merge(['class' => $color['bg'].' '.$color['hover']." ".$color['focus']." ".

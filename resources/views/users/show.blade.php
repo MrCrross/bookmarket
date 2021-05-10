@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="mb-5">
             <div class="float-left">
-                <h2 class="text-xl">Просмотр пользователя</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight ">Просмотр пользователя</h2>
             </div>
             <div class="float-right">
-                <x-a.primary href="{{ route('users.index') }}">Назад</x-a.primary>
+                <x-a href="{{ route('users.index') }}">Назад</x-a>
             </div>
         </div>
     </x-slot>
