@@ -191,7 +191,7 @@
                 </div>
                 <div class="sec-hid-img inline-flex justify-start mt-2 ">
                     <span>
-                        <img data-toggle="#imgModal" src="" title="" class="h-12 w-12 cursor-pointer">
+                        <img data-toggle="#imgModal" src="" title="" class="h-12 w-12 mx-4 cursor-pointer">
                     </span>
                 </div>
                 @can('product-edit')
@@ -516,7 +516,7 @@
                     <div class="sec-hid-img inline-flex justify-start mt-2 ">
                         @foreach($product->images as $image)
                             <span>
-                                <img data-toggle="#imgModal" src="{{asset('storage/'.$image->image)}}" title="Доп. изображение книги {{$product->name}} № {{$image->id}}" class="h-12 w-12 cursor-pointer">
+                                <img data-toggle="#imgModal" src="{{asset('storage/'.$image->image)}}" title="Доп. изображение книги {{$product->name}} № {{$image->id}}" class="h-12 w-12 mx-4 cursor-pointer">
                             </span>
                         @endforeach
                     </div>

@@ -9,26 +9,26 @@
                     <div class="slider__items ">
                         @foreach($products as $key=>$product)
                             @if(count($products)==1)
-                                <div class="slider__item flex flex-row w-full justify-center items-top my-5">
+                                <div class="slider__item pl-5 md:pl-0 flex flex-col md:flex-row w-full justify-center items-top my-5">
                                     <div class="mr-4">
-                                        <a href="/shop/{{$product->id}}">
-                                            <img class="w-96 rounded-xl" src="{{asset('storage/'.$product->image)}}" title="" alt="">
+                                        <a href="/{{$product->id}}">
+                                            <img class="w-72 rounded-xl" src="{{asset('storage/'.$product->image)}}" title="" alt="">
                                         </a>
                                     </div>
-                                    <div class="flex flex-col justify-start mt-10 font">
+                                    <div class="flex flex-col justify-start mt-10">
                                         <label><span class="font-semibold italic text-purple-400">ISBN: </span> {{$product->ISBN}}</label>
-                                        <label><span class="font-semibold italic text-purple-400">Название: </span> <a href="/shop/{{$product->id}}">{{$product->name}}</a></label>
+                                        <label><span class="font-semibold italic text-purple-400">Название: </span> <a href="/{{$product->id}}">{{$product->name}}</a></label>
                                         <label><span class="font-semibold italic text-purple-400">Стоимость: </span> {{$product->price.' руб.'}}</label>
                                         <label><span class="font-semibold italic text-purple-400">Количество страниц: </span> {{$product->pages}}</label>
                                         <label><span class="font-semibold italic text-purple-400">Год издания: </span> {{$product->year_release}}</label>
-                                        <label><span class="font-semibold italic text-purple-400">Автор: </span><a href="/shop/author/{{$product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">{{$product->author->last_name." ".$product->author->initials}}</a></label>
-                                        <label><span class="font-semibold italic text-purple-400">Возрастные ограничения: </span> <a href="/shop/limit/{{$product->limit->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">{{$product->limit->name}}</a></label>
-                                        <label><span class="font-semibold italic text-purple-400">Издательство: </span> <a href="/shop/publisher/{{$product->publisher->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">{{$product->publisher->name}}</a></label>
+                                        <label><span class="font-semibold italic text-purple-400">Автор: </span><a href="/shop/author/{{$product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">{{$product->author->last_name." ".$product->author->initials}}</a></label>
+                                        <label><span class="font-semibold italic text-purple-400">Возрастные ограничения: </span> <a href="/shop/limit/{{$product->limit->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">{{$product->limit->name}}</a></label>
+                                        <label><span class="font-semibold italic text-purple-400">Издательство: </span> <a href="/shop/publisher/{{$product->publisher->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">{{$product->publisher->name}}</a></label>
                                         <label class="flex flex-row"><span class="font-semibold italic text-purple-400 mr-2">Жанры: </span>
                                                 @foreach($product->genres as $key=>$genre)
-                                                <a href="/shop/genre/{{$genre->genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100"> {{$genre->genre->name}}</a>
+                                                <a href="/shop/genre/{{$genre->genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200"> {{$genre->genre->name}}</a>
                                                     @if(count($product->genres)!==++$key)
-                                                        {{','}}
+                                                        {{', '}}
                                                     @endif
                                                 @endforeach
                                         </label>
@@ -37,36 +37,37 @@
                                             <span>{{$product->description}}</span>
                                         </label>
                                         <label>
-                                            <x-btn body="info" class="px-1 py-1"> Купить</x-btn>
+                                            <x-btn body="info" class="mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
+                                            <x-btn body="success" class="px-1 py-1 hidden"> В корзине</x-btn>
                                         </label>
                                     </div>
                                 </div>
                             @endif
-                            <div class="slider__item flex flex-row w-full justify-center items-top my-5">
+                            <div class="slider__item pl-5 md:pl-0 flex flex-col md:flex-row w-full justify-center items-top my-5">
                                 <div class="mr-4">
-                                    <a href="/shop/{{$product->id}}">
-                                        <img class="w-96 rounded-xl" src="{{asset('storage/'.$product->image)}}" title="" alt="">
+                                    <a href="/{{$product->id}}">
+                                        <img class="w-72 rounded-xl" src="{{asset('storage/'.$product->image)}}" title="" alt="">
                                     </a>
                                 </div>
-                                <div class="flex flex-col justify-start mt-10 font">
+                                <div class="flex flex-col justify-start mt-10">
                                     <label><span class="font-semibold italic text-purple-400">ISBN: </span> {{$product->ISBN}}</label>
-                                    <label><span class="font-semibold italic text-purple-400">Название: </span> <a href="/shop/{{$product->id}}">{{$product->name}}</a></label>
+                                    <label><span class="font-semibold italic text-purple-400">Название: </span> <a href="/{{$product->id}}">{{$product->name}}</a></label>
                                     <label><span class="font-semibold italic text-purple-400">Стоимость: </span> {{$product->price.' руб.'}}</label>
                                     <label><span class="font-semibold italic text-purple-400">Количество страниц: </span> {{$product->pages}}</label>
                                     <label><span class="font-semibold italic text-purple-400">Год издания: </span> {{$product->year_release}}</label>
-                                    <label><span class="font-semibold italic text-purple-400">Автор: </span><a href="/shop/author/{{$product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">{{$product->author->last_name." ".$product->author->initials}}</a></label>
-                                    <label><span class="font-semibold italic text-purple-400">Возрастные ограничения: </span> <a href="/shop/limit/{{$product->limit->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">{{$product->limit->name}}</a></label>
-                                    <label><span class="font-semibold italic text-purple-400">Издательство: </span> <a href="/shop/publisher/{{$product->publisher->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">{{$product->publisher->name}}</a></label>
+                                    <label><span class="font-semibold italic text-purple-400">Автор: </span><a href="/shop/author/{{$product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">{{$product->author->last_name." ".$product->author->initials}}</a></label>
+                                    <label><span class="font-semibold italic text-purple-400">Возрастные ограничения: </span> <a href="/shop/limit/{{$product->limit->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">{{$product->limit->name}}</a></label>
+                                    <label><span class="font-semibold italic text-purple-400">Издательство: </span> <a href="/shop/publisher/{{$product->publisher->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">{{$product->publisher->name}}</a></label>
                                     <label class="flex flex-row"><span class="font-semibold italic text-purple-400 mr-2">Жанры: </span>
                                         @foreach($product->genres as $key=>$genre)
-                                            <a href="/shop/genre/{{$genre->genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100"> {{$genre->genre->name}}</a>
+                                            <a href="/shop/genre/{{$genre->genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200"> {{$genre->genre->name}}</a>
                                             @if(count($product->genres)!==++$key)
-                                                {{','}}
+                                                {{', '}}
                                             @endif
                                         @endforeach
                                     </label>
                                     <span>
-                                        <x-btn body="info" class="cart px-1 py-1"> Купить</x-btn>
+                                        <x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
                                     </span>
                                 </div>
                             </div>
@@ -93,9 +94,62 @@
             </ol>
         </div>
     </x-slot>
-
-    <div class="py-5 px-12 mx-auto flex flex-row justify-between items-center">
-        <div class="slider sliderGenre w-1/2 mr-2">
+    @auth
+        <div class="slider sliderRecom my-12 md:mx-12">
+            <div class="slider__container">
+                <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
+                    <h2 class="flex flex-row w-full justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
+                        {{ __('Рекомендуем:') }}
+                    </h2>
+                    <div class="slider__items">
+                        @foreach($recom as $item)
+                            @foreach($item['products'] as $key=>$product)
+                                @if(count($item['products'])>0)
+                                    <div class="slider__item flex md:flex-auto justify-center items-top my-5 md:px-4 xl:px-0">
+                                        <div class="flex flex-col w-64">
+                                            <a href="/{{$product['id']}}">
+                                                <img class="h-96 w-full rounded-xl" src="{{asset('storage/'.$product['image'])}}" title="" alt="">
+                                            </a>
+                                            <label>
+                                            <span><a href="/shop/author/{{$item['id']}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">
+                                                    {{$item['last_name']." ".$item['initials']}}
+                                            </a></span>
+                                            </label>
+                                            <label>
+                                                <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product['id']}}"> Купить</x-btn></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($key === 9)
+                                    @break
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <a class="slider__control" data-slide="prev"></a>
+            <a class="slider__control" data-slide="next"></a>
+            <ol class="slider__indicators">
+                @foreach($recom as $keyR=>$item)
+                    @foreach($item['products'] as $key=>$product)
+                        @if(count($item['products'])===1)
+                            <li data-slide-to="{{++$keyR * ++$key}}"></li>
+                        @endif
+                        @if(count($item['products'])!==0)
+                            <li data-slide-to="{{++$keyR * ++$key}}"></li>
+                        @endif
+                        @if((++$keyR * ++$key) === 9)
+                            @break
+                        @endif
+                    @endforeach
+                @endforeach
+            </ol>
+        </div>
+    @endauth
+    <div class="py-5 md:px-12 mx-auto block md:flex flex-row justify-between items-center">
+        <div class="slider sliderGenre mt-4 w-full md:mt-0 md:w-1/2 mr-2">
             <div class="slider__container">
                 <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
                     <h2 class="flex flex-row w-full justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
@@ -104,25 +158,22 @@
                     <div class="slider__items">
                         @foreach($genres as $key=>$genre)
                             @if(count($genre->products)!==0)
-                            <div class="slider__item flex flex-3 justify-center items-top my-5">
-                                <div class="mr-4">
-                                    <div class="flex flex-col w-36">
-                                        <a href="/shop/{{$genre->products[count($genre->products)-1]->product->id}}">
-                                            <img class="w-full rounded-xl" src="{{asset('storage/'.$genre->products[count($genre->products)-1]->product->image)}}" title="" alt="">
+                            <div class="slider__item flex md:flex-3 justify-center items-top my-5 sm:px-0 md:px-4 xl:px-0">
+                                <div class="flex flex-col w-64">
+                                    <a href="/{{$genre->products[count($genre->products)-1]->product->id}}">
+                                        <img class="h-96 w-full rounded-xl" src="{{asset('storage/'.$genre->products[count($genre->products)-1]->product->image)}}" title="" alt="">
+                                    </a>
+                                    <label>
+                                        <a href="/shop/author/{{$genre->products[count($genre->products)-1]->product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">
+                                            {{$genre->products[count($genre->products)-1]->product->author->last_name." ".$genre->products[count($genre->products)-1]->product->author->initials}}
                                         </a>
-                                        <label>
-                                            <a href="/shop/author/{{$genre->products[count($genre->products)-1]->product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">
-                                                {{$genre->products[count($genre->products)-1]->product->author->last_name." ".$genre->products[count($genre->products)-1]->product->author->initials}}
-                                            </a>
-                                        </label>
-                                        <label>
-                                            <span class="inline">
-                                                <a href="/shop/genre/{{$genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100"> {{$genre->name}}</a>
-                                            </span>
-                                            <span class="inline"><x-btn body="info" class="cart px-1 py-1"> Купить</x-btn></span>
-                                        </label>
-                                    </div>
-
+                                    </label>
+                                    <label>
+                                        <span class="inline">
+                                            <a href="/shop/genre/{{$genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200"> {{$genre->name}}</a>
+                                        </span>
+                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$genre->products[count($genre->products)-1]->product->id}}"> Купить</x-btn></span>
+                                    </label>
                                 </div>
                             </div>
                             @endif
@@ -149,30 +200,28 @@
                 @endforeach
             </ol>
         </div>
-        <div class="slider sliderAuthor w-1/2 h-full">
+        <div class="slider sliderAuthor mt-4 w-full md:mt-0 md:w-1/2 md:h-full">
             <div class="slider__container">
                 <div class="slider__wrapper bg-gradient-to-r to-blue-100 from-pink-100 rounded-xl py-3">
-                    <h2 class="flex flex-row w-full justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
+                    <h2 class="flex flex-row w-full py-3 justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
                         {{ __('Популярные авторы:') }}
                     </h2>
                     <div class="slider__items">
                         @foreach($authors as $key=>$author)
                             @if(count($author->products)!==0)
-                            <div class="slider__item flex flex-3 justify-center items-center my-5">
-                                <div class="mr-4">
-                                    <div class="flex flex-col w-32 ">
-                                        <a href="/shop/{{$author->products[count($author->products)-1]->id}}">
-                                            <img class=" w-full rounded-xl" src="{{asset('storage/'.$author->products[count($author->products)-1]->image)}}" title="" alt="">
-                                        </a>
-                                        <label>
-                                            <span class="inline">
-                                                 <a href="/shop/author/{{$author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">
-                                                    {{$author->last_name." ".$author->initials}}
-                                                 </a>
-                                            </span>
-                                            <span class="inline"><x-btn body="info" class="cart px-1 py-1"> Купить</x-btn></span>
-                                        </label>
-                                    </div>
+                            <div class="slider__item flex md:flex-3 justify-center items-center my-5 sm:px-0 md:px-4 xl:px-0">
+                                <div class="flex flex-col w-64">
+                                    <a href="/{{$author->products[count($author->products)-1]->id}}">
+                                        <img class="h-96 w-full rounded-xl" src="{{asset('storage/'.$author->products[count($author->products)-1]->image)}}" title="" alt="">
+                                    </a>
+                                    <label>
+                                        <span class="inline">
+                                             <a href="/shop/author/{{$author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">
+                                                {{$author->last_name." ".$author->initials}}
+                                             </a>
+                                        </span>
+                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$author->products[count($author->products)-1]->id}}"> Купить</x-btn></span>
+                                    </label>
                                 </div>
                             </div>
                             @endif
@@ -200,7 +249,7 @@
             </ol>
         </div>
     </div>
-    <div class="slider sliderLimit mx-12">
+    <div class="slider sliderLimit mt-4 md:mt-0 md:mx-12">
         <div class="slider__container">
             <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
                 <h2 class="flex flex-row w-full justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
@@ -209,21 +258,19 @@
                 <div class="slider__items">
                     @foreach($limits[0]->products as $key=>$product)
                         @if(count($limits[0]->products)!==0)
-                        <div class="slider__item flex flex-auto justify-center items-top my-5">
-                            <div class="mr-4">
-                                <div class="flex flex-col w-32 ">
-                                    <a href="/shop/{{$product->id}}">
-                                        <img class="w-full rounded-xl" src="{{asset('storage/'.$product->image)}}" title="" alt="">
-                                    </a>
-                                    <label class="w-32">
-                                        <span>
-                                            <a href="/shop/author/{{$product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-100">
-                                                {{$product->author->last_name." ".$product->author->initials}}
-                                            </a>
-                                        </span>
-                                        <span class="inline"><x-btn body="info" class="cart px-1 py-1"> Купить</x-btn></span>
-                                    </label>
-                                </div>
+                        <div class="slider__item flex md:flex-auto justify-center items-top my-5 sm:px-0 md:px-4 xl:px-0">
+                            <div class="flex flex-col w-64">
+                                <a href="/{{$product->id}}">
+                                    <img class="h-96 w-full rounded-xl" src="{{asset('storage/'.$product->image)}}" title="" alt="">
+                                </a>
+                                <label>
+                                    <span class="inline">
+                                        <a href="/shop/author/{{$product->author->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">
+                                            {{$product->author->last_name." ".$product->author->initials}}
+                                        </a>
+                                    </span>
+                                    <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn></span>
+                                </label>
                             </div>
                         </div>
                         @endif
@@ -250,6 +297,7 @@
             @endforeach
         </ol>
     </div>
+    <script src="{{asset('js/cart.js')}}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             new ChiefSlider('.sliderHead', {
@@ -265,6 +313,9 @@
                 loop: false,
             });
             new ChiefSlider('.sliderLimit', {
+                loop: false,
+            });
+            new ChiefSlider('.sliderRecom', {
                 loop: false,
             });
         });

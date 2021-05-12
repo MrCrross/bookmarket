@@ -54,7 +54,7 @@ function handleFileMultiSelect(evt) {
                     return function (e) {
                         // Render thumbnail.
                         const span = document.createElement('span');
-                        span.innerHTML = ['<img class="h-12 w-12 cursor-pointer" data-toggle="#imgModal" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
+                        span.innerHTML = ['<img class="h-12 w-12 mx-4 cursor-pointer" data-toggle="#imgModal" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
                         div.append(span);
                     };
                 })(f);
@@ -77,18 +77,18 @@ function imgModalHandler(e){
     modal.querySelector('.modal_body').append(img)
 }
 
-
-document.querySelector('.container').addEventListener('change',function (e){
-    if(e.target && e.target.matches('.main-img[type="file"]')){
-        handleFileSelect(e)
-    }
-    if(e.target && e.target.matches('.sec-img[type="file"]')){
-        handleFileMultiSelect(e)
-    }
-})
-
-document.querySelector('.container').addEventListener('click',function (e){
-    if(e.target && e.target.matches('img[data-toggle="#imgModal"]')){
-        imgModalHandler(e)
-    }
-})
+if(document.querySelector('.container')){
+    document.querySelector('.container').addEventListener('change',function (e){
+        if(e.target && e.target.matches('.main-img[type="file"]')){
+            handleFileSelect(e)
+        }
+        if(e.target && e.target.matches('.sec-img[type="file"]')){
+            handleFileMultiSelect(e)
+        }
+    })
+    document.querySelector('.container').addEventListener('click',function (e){
+        if(e.target && e.target.matches('img[data-toggle="#imgModal"]')){
+            imgModalHandler(e)
+        }
+    })
+}

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------

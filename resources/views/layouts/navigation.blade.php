@@ -13,6 +13,9 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('shop')" :active="request()->routeIs('shop')">
+                        {{ __('Обзор') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('shop.shop')" :active="request()->routeIs('shop.shop')">
                         {{ __('Магазин') }}
                     </x-nav-link>
                 </div>
@@ -22,7 +25,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @guest
-                        <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('cart')">
                             {{ __('Корзина') }}
                         </x-nav-link>
                         <x-dropdown align="right" width="48">
@@ -48,8 +51,11 @@
                         </x-dropdown>
                     @endguest
                     @auth
-                        <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
-                            {{ __('Корзина') }}
+                        <x-nav-link href="cart/{{\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier()}}" :active="request()->routeIs('cart')">
+                            {{ 'Корзина ' }}
+                            @if(\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::user())->count()!==0)
+                                {{\App\Models\Cart::where('user_id',\Illuminate\Support\Facades\Auth::user())->count()}}
+                            @endif
                         </x-nav-link>
                         @canany(['product-create','product-edit','product-delete'])
                             <x-nav-link :href="route('products')" :active="request()->routeIs('products')">
@@ -118,6 +124,9 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('shop')" :active="request()->routeIs('shop')">
+                {{ __('Обзор') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('shop.shop')" :active="request()->routeIs('shop.shop')">
                 {{ __('Магазин') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('shop')" :active="request()->routeIs('shop')">
