@@ -31,7 +31,7 @@
                 <div class="md:w-1/4 p-4 md:ml-2 bg-gray-100 md:rounded-l-xl">
                     <div class="flex flex-col">
                         <div class="inline-flex justify-center">
-                            <div class="main-hid-img h-72 w-full flex items-center justify-center border-2 border-gray-400 border-dashed">
+                            <div class="main-hid-img w-4/6 h-72 flex items-center justify-center border-2 border-gray-400 border-dashed">
                                 <x-svg.x fill="rgb(156,163,175)" width="36" height="36" />
                             </div>
                             <img class="main-img h-72 hidden" src="" alt="">
@@ -48,7 +48,7 @@
                             </label>
                             <label class="flex flex-col p-2 rounded-full cursor-pointer bg-green-600" title="Добавить больше изображений">
                                 <img class="w-5" src="{{asset('storage/images/icons/image-plus.svg')}}" alt="Добавить больше изображений">
-                                <input type='file' name="images[][]" class="sec-img hidden" accept="image/jpeg, image/png" multiple />
+                                <input type='file' name="images[0][]" class="sec-img hidden" accept="image/jpeg, image/png" multiple />
                             </label>
                         </div>
                     </div>
@@ -56,46 +56,50 @@
     {{--                ISBN, Название, Количество страниц, Год издания и Возрастное ограничение--}}
                 <div class="md:w-2/5 p-4 bg-gray-200">
                     <div class="flex flex-col">
-                            <div>
-                                <x-label for="ISBN" :value="__('ISBN:')" />
-                                <x-input class="block mt-1 w-full" type="text" name="ISBN[]" maxLength="17" minLength="17" pattern="[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}" value="" required placeholder="ISBN"/>
+                        <div>
+                            <x-label for="ISBN" :value="__('ISBN:')" />
+                            <x-input class="block mt-1 w-full" type="text" name="ISBN[]" maxLength="17" minLength="17" pattern="[0-9]{3}-[0-9]{1}-[0-9]{2,3}-[0-9]{5,6}-[0-9]{1}" value="" required placeholder="ISBN"/>
+                        </div>
+                        <div class="mt-4">
+                            <x-label for="name" :value="__('Название:')" />
+                            <x-input class="block mt-1 w-full" type="text" name="name[]" :value="old('email')" required placeholder="Название"/>
+                        </div>
+                        <div class="mt-4 md:flex flex-row justify-around">
+                            <div class="md:inline-flex mr-3">
+                                <label for="price"  class="mr-3 text-xs">Цена</label>
+                                <x-input class="w-full"
+                                         type="number"
+                                         name="price[]"
+                                         required placeholder="Стоимость" min="99" />
                             </div>
-                            <div class="mt-4">
-                                <x-label for="name" :value="__('Название:')" />
-                                <x-input class="block mt-1 w-full" type="text" name="name[]" :value="old('email')" required placeholder="Название"/>
+                            <div class="md:inline-flex">
+                                <label for="pages"  class="mr-3 text-xs">Кол-во<p>страниц</p></label>
+                                <x-input class="w-full"
+                                         type="number"
+                                         name="pages[]"
+                                         required placeholder="Кол-во страниц" min="0" />
                             </div>
-                            <div class="mt-4 md:flex flex-row justify-around">
-                                <div class="md:inline-flex mr-3">
-                                    <label for="price"  class="mr-3 text-xs">Цена</label>
-                                    <x-input class="w-full"
-                                             type="number"
-                                             name="price[]"
-                                             required placeholder="Стоимость" min="99" />
-                                </div>
-                                <div class="md:inline-flex">
-                                    <label for="pages"  class="mr-3 text-xs">Кол-во<p>страниц</p></label>
-                                    <x-input class="w-full"
-                                             type="number"
-                                             name="pages[]"
-                                             required placeholder="Кол-во страниц" min="0" />
-                                </div>
+                        </div>
+                        <div class="mt-4 md:flex flex-row justify-around">
+                            <div class="md:inline-flex mr-3">
+                                <label for="year_release" class="mr-3 text-xs" >Год</label>
+                                <x-input class="w-full"
+                                         type="number" :value="__(date('Y'))" name="year_release[]"
+                                         placeholder="Год издания"  min="1900" max="2100" pattern="[0-9]{4}" required/>
                             </div>
-                            <div class="mt-4 md:flex flex-row justify-around">
-                                <div class="md:inline-flex mr-3">
-                                    <label for="year_release" class="mr-3 text-xs" >Год</label>
-                                    <x-input class="w-full"
-                                             type="number" :value="__(date('Y'))" name="year_release[]"
-                                             placeholder="Год издания"  min="1900" max="2100" pattern="[0-9]{4}" required/>
-                                </div>
-                                <div class="md:inline-flex">
-                                    <label for="limit" class="mr-3 text-xs" >Возрастные<p>ограничения</p></label>
-                                    <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="limit" required>
-                                        @foreach($limits as $limit)
-                                            <option value="{{$limit->id}}" @if($limit->id===1) selected @endif>{{$limit->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="md:inline-flex">
+                                <label for="limit" class="mr-3 text-xs" >Возрастные<p>ограничения</p></label>
+                                <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="limit[]" required>
+                                    @foreach($limits as $limit)
+                                        <option value="{{$limit->id}}" @if($limit->id===1) selected @endif>{{$limit->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                        </div>
+                        <div class="mt-4">
+                            <x-label for="description" :value="__('Описание:')" />
+                            <x-textarea class="block mt-1 w-full" type="text" name="description[]" rows="5" placeholder="Описание" required></x-textarea>
+                        </div>
                     </div>
                 </div>
     {{--                Автор, Жанры и Издатель--}}
@@ -136,7 +140,7 @@
                         <div class="mt-4">
                             <x-label for="genres" :value="__('Жанры:')" />
                             <div class="inline-flex mt-1 flex-row w-full">
-                                <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="genre[][]" required >
+                                <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 genre" name="genre[0][]" required >
                                     <option value="">Выберите жанр</option>
                                     @foreach($genres as $genre)
                                         <option value="{{$genre->id}}">{{$genre->name}}</option>
@@ -224,7 +228,7 @@
                         <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                             <x-input class="w-full" type="text" name="ISBN"
                                      maxLength="17" minLength="17" value=""
-                                     pattern="[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}"
+                                     pattern="[0-9]{3}-[0-9]{1}-[0-9]{2,3}-[0-9]{5,6}-[0-9]{1}"
                                      placeholder="ISBN" />
                             <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                         </div>
@@ -401,7 +405,7 @@
                                 </span>
                             @can('product-edit')
                                 <div class="product-contentEdit inline-flex flex-row w-full md:w-1/2 hidden">
-                                    <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="genre[]" >
+                                    <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 genre" name="genre[]" >
                                         <option value="" class="hidden"></option>
                                         @foreach($genres as $genre)
                                             <option value="{{$genre->id}}" >{{$genre->name}}</option>
@@ -434,7 +438,7 @@
                                 </span>
                             @can('product-edit')
                                 <div class="product-contentEdit inline-flex flex-row w-full md:w-1/2 hidden">
-                                    <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="genre[]" >
+                                    <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 genre" name="genre[]" >
                                         <option value="" class="hidden"></option>
                                         @foreach($genres as $el)
                                             <option value="{{$el->id}}" >{{$el->name}}</option>
@@ -463,6 +467,21 @@
                             @endcan
                         </div>
                     </div>
+                </div>
+                <div class="mt-2">
+                    <label for="description" class="md:inline text-sm">
+                        <span class="font-semibold px-2 text-gray-500">Описание: </span>
+                        <span class="description"></span>
+                        @can('product-edit')
+                            <span class="inline product-edit ml-1">&#128393;</span>
+                        @endcan
+                    </label>
+                    @can('product-edit')
+                        <div class="w-full inline-flex product-contentEdit hidden">
+                            <x-textarea class="w-full" name="description" placeholder="Описание" cols="30" rows="5"></x-textarea>
+                            <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -535,7 +554,7 @@
                             <div class="w-full md:w-1/2 inline-flex product-contentEdit hidden">
                                 <x-input class="w-full" type="text" name="ISBN"
                                          maxLength="17" minLength="17" value=""
-                                         pattern="[0-9]{3}-[0-9]{1}-[0-9]{3}-[0-9]{5}-[0-9]{1}"
+                                         pattern="[0-9]{3}-[0-9]{1}-[0-9]{2,3}-[0-9]{5,6}-[0-9]{1}"
                                          placeholder="ISBN"/>
                                 <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
                             </div>
@@ -725,7 +744,7 @@
                                     </span>
                                     @can('product-edit')
                                         <div class="product-contentEdit inline-flex flex-row w-full md:w-1/2 hidden">
-                                            <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="genre[]" >
+                                            <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 genre" name="genre[]" >
                                                 <option value="" class="hidden"></option>
                                                 @foreach($genres as $el)
                                                     <option value="{{$el->id}}" >{{$el->name}}</option>
@@ -760,7 +779,7 @@
                                 </span>
                                 @can('product-edit')
                                     <div class="product-contentEdit inline-flex flex-row w-full md:w-1/2 hidden">
-                                        <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="genre[]" >
+                                        <select class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 genre" name="genre[]" >
                                             <option value="" class="hidden"></option>
                                             @foreach($genres as $el)
                                                 <option value="{{$el->id}}" >{{$el->name}}</option>
@@ -790,6 +809,21 @@
                             </div>
                             @endcan
                         </div>
+                    </div>
+                    <div class="mt-2">
+                        <label for="description" class="md:inline text-sm">
+                            <span class="font-semibold px-2 text-gray-500">Описание: </span>
+                            <span class="description">{{$product->description}}</span>
+                            @can('product-edit')
+                                <span class="inline product-edit ml-1" data-name="{{$product->description}}">&#128393;</span>
+                            @endcan
+                        </label>
+                        @can('product-edit')
+                            <div class="w-full inline-flex product-contentEdit hidden">
+                                <x-textarea class="w-full" name="description" placeholder="Описание" cols="30" rows="5"></x-textarea>
+                                <x-btn class="productEditSubmit" type="submit" title="Сохранить изменения">&#10003;</x-btn>
+                            </div>
+                        @endcan
                     </div>
                 </div>
             </div>

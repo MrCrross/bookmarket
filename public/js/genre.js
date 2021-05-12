@@ -13,7 +13,7 @@ function genreCreateHandler(e){
         .then(res=>{
             modal.querySelector('a[data-hystclose]').click()
             if(res.genres){
-                const genres = document.querySelectorAll('select[name="genre[][]"]')
+                const genres = document.querySelectorAll('select.genre')
                 genres.forEach(function (item){
                     item.querySelectorAll('option').forEach(function (option){
                         option.remove()
@@ -22,18 +22,6 @@ function genreCreateHandler(e){
                         const option = document.createElement('option')
                         option.value= genre.id
                         option.innerHTML = genre.name
-                        item.append(option)
-                    })
-                })
-                const genre = document.querySelectorAll('select[name="genre[]"]')
-                genre.forEach(function (item){
-                    item.querySelectorAll('option').forEach(function (option){
-                        option.remove()
-                    })
-                    res.genres.forEach(function (el){
-                        const option = document.createElement('option')
-                        option.value= el.id
-                        option.innerHTML = el.name
                         item.append(option)
                     })
                 })

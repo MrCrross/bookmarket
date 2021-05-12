@@ -2,6 +2,7 @@
 function productCreateHandler(e){
     e.preventDefault()
     const form=document.querySelector('#productCreateForm')
+    const clone = form.querySelector('.clone')
     const formData = new FormData(form)
     fetch('/api/product',{
         method: "POST",
@@ -88,8 +89,14 @@ function productEditOpenHandler(target){
         })
     }
     if(name) {
-        contentEdit.querySelector('input').required= contentEdit.querySelector('input').required ? false: true
-        contentEdit.querySelector('input').value = name
+        if(contentEdit.querySelector('input')){
+            contentEdit.querySelector('input').required= contentEdit.querySelector('input').required ? false: true
+            contentEdit.querySelector('input').value = name
+        }
+        if(contentEdit.querySelector('textarea')){
+            contentEdit.querySelector('textarea').required= contentEdit.querySelector('textarea').required ? false: true
+            contentEdit.querySelector('textarea').value = name
+        }
     }
     contentEdit.classList.toggle('hidden')
 }
@@ -138,6 +145,8 @@ function updateContent(product){
     clone.querySelector('label[for="year_release"]').querySelector('.product-edit').dataset.name=product.year_release
     clone.querySelector('.limit').innerHTML=product.limit.name
     clone.querySelector('label[for="limit"]').querySelector('.product-edit').dataset.id=product.limit.id
+    clone.querySelector('label[for="description"]').querySelector('.product-edit').dataset.name=product.description
+    clone.querySelector('.description').innerHTML=product.description
     clone.querySelector('.author').innerHTML=product.author.last_name+" "+product.author.initials
     clone.querySelector('[data-toggle="#authorDelete"]').dataset.id =product.author.id
     clone.querySelector('[data-toggle="#authorDelete"]').dataset.first_name =product.author.first_name

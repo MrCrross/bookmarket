@@ -15,6 +15,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            flex:{
+                '3': '0 0 33.3333333333%',
+                '4': '0 0 ',
+            }
         },
     },
 

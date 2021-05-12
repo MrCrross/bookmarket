@@ -56,6 +56,7 @@ class ProductController extends Controller
                     'price'=>$request->price[$key],
                     'image'=>$url,
                     'year_release'=>$request->year_release[$key],
+                    'description'=>$request->description[$key],
                     'limit_id'=>$request->limit[$key],
                     'publisher_id'=>$request->publisher[$key],
                     'author_id'=>$request->author[$key]
@@ -134,6 +135,9 @@ class ProductController extends Controller
             }
             if(isset($request->year_release)){
                 $data['year_release']=$request->year_release;
+            }
+            if(isset($request->description)){
+                $data['description']=$request->description;
             }
             if(isset($request->limit)){
                 $data['limit_id']=$request->limit;

@@ -23,12 +23,12 @@
 
     </div>
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. type="submit">
+        <x-btn type="submit">
             {{ __('Отправить') }}
-        </x-btn.>
-        <x-btn. class="addClone">
+        </x-btn>
+        <x-btn class="addClone">
             {{ __('Добавить ещё') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -45,9 +45,9 @@
              value=""
              minLength="3" maxLength="50" placeholder="Название жанра" required/>
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. type="submit">
+        <x-btn type="submit">
             {{ __('Сохранить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -61,9 +61,9 @@
     </div>
     <x-label for="name" value="" />
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. body="danger" type="submit">
+        <x-btn body="danger" type="submit">
             {{ __('Удалить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -77,11 +77,11 @@
             </div>
             <div>
                 <x-label for="last_name" :value="__('Фамилия:')" />
-                <x-input class="block mt-1 w-full" type="text" name="last_name[]" :value="old('name')" pattern="^[А-Яа-яЁёЕе]+$" minLength="2" maxLength="100" placeholder="Фамилия автора" required/>
+                <x-input class="block mt-1 w-full" type="text" name="last_name[]" :value="old('name')" pattern="^[А-Яа-яЁёЕе\s]+$" minLength="2" maxLength="100" placeholder="Фамилия автора" required/>
             </div>
             <div class="mt-4">
                 <x-label for="first_name" :value="__('Имя:')" />
-                <x-input class="block mt-1 w-full" type="text" name="first_name[]" :value="old('name')" pattern="^[А-Яа-яЁёЕе]+$" minLength="2" maxLength="100" placeholder="Имя автора" required/>
+                <x-input class="block mt-1 w-full" type="text" name="first_name[]" :value="old('name')" pattern="^[А-Яа-яЁёЕе\s]+$" minLength="2" maxLength="100" placeholder="Имя автора" required/>
             </div>
             <div class="mt-4">
                 <x-label for="father_name" :value="__('Отчество (если есть):')" />
@@ -92,12 +92,12 @@
 
         </div>
         <div class="flex flex-row items-center justify-center mt-4">
-            <x-btn. type="submit">
+            <x-btn type="submit">
                 {{ __('Отправить') }}
-            </x-btn.>
-            <x-btn. class="addClone">
+            </x-btn>
+            <x-btn class="addClone">
                 {{ __('Добавить ещё') }}
-            </x-btn.>
+            </x-btn>
         </div>
     {!! Form::close() !!}
 </x-modal>
@@ -122,9 +122,9 @@
         <x-input class="block mt-1 w-full" type="text" name="father_name" value="" pattern="^[А-Яа-яЁёЕе]+$" minLength="2" maxLength="100" placeholder="Отчетсво автора"/>
     </div>
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. type="submit">
+        <x-btn type="submit">
             {{ __('Сохранить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -138,9 +138,9 @@
     </div>
     <x-label for="last_name" value="" />
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. body="danger" type="submit">
+        <x-btn body="danger" type="submit">
             {{ __('Удалить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -159,12 +159,12 @@
 
     </div>
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. type="submit">
+        <x-btn type="submit">
             {{ __('Отправить') }}
-        </x-btn.>
-        <x-btn. class="addClone">
+        </x-btn>
+        <x-btn class="addClone">
             {{ __('Добавить ещё') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -181,9 +181,9 @@
              value=""
              minLength="3" maxLength="50" placeholder="Название издательства" required/>
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. type="submit">
+        <x-btn type="submit">
             {{ __('Сохранить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -197,9 +197,9 @@
     </div>
     <x-label for="name" value="" />
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. body="danger" type="submit">
+        <x-btn body="danger" type="submit">
             {{ __('Удалить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>
@@ -213,9 +213,9 @@
     </div>
     <x-label for="name" value="" />
     <div class="flex flex-row items-center justify-center mt-4">
-        <x-btn. body="danger" type="submit">
+        <x-btn body="danger" type="submit">
             {{ __('Удалить') }}
-        </x-btn.>
+        </x-btn>
     </div>
     {!! Form::close() !!}
 </x-modal>

@@ -14,6 +14,7 @@ class Product extends Model
         'name' ,
         'image',
         'year_release',
+        'description',
         'pages',
         'price',
         'limit_id',

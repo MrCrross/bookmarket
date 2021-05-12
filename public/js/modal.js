@@ -17,6 +17,7 @@ const myModal = new HystModal({
 function cloneHandler(item){
     const form = item.parentNode.parentNode
     const cloneObject = form.querySelector('.clone').cloneNode(true)
+    const cloneObjects =form.querySelectorAll('.cloneObj')
     const lastHead =form.querySelectorAll('.num')[form.querySelectorAll('.num').length-1]
     const num = Number(lastHead.innerText.slice(-2,-1))===0 ? Number(lastHead.innerText.slice(-1)):Number(lastHead.innerText.slice(-2,-1))
     const content = form.querySelector('.content')
@@ -33,6 +34,10 @@ function cloneHandler(item){
         item.value=''
     })
     if(cloneObject.querySelector('.sec-hid-img') && cloneObject.querySelector('.main-hid-img')){
+        cloneObject.querySelector('textarea').innerText=''
+        cloneObject.querySelectorAll('.remGenre').forEach(function (item){
+            item.parentNode.remove()
+        })
         const main_img = cloneObject.querySelector('.main-img[src]')// IMG
         main_img.src = ''
         main_img.alt = ''
@@ -43,6 +48,19 @@ function cloneHandler(item){
             item.remove()
         })
         cloneObject.querySelector('.sec-hid-img').classList.add('hidden')
+        console.log(cloneObjects.length)
+        if(cloneObjects.length!==0){
+            const imgName =cloneObjects[cloneObjects.length-1].querySelector('input[type="file"].sec-img').name
+            const genreName =cloneObjects[cloneObjects.length-1].querySelector('.addGenre').parentNode.querySelector('select').name
+            cloneObject.querySelector('input[type="file"].sec-img').name= 'images['+Number(Number(imgName.slice(imgName.indexOf('[')+1,imgName.indexOf('[')+2))+1)+'][]'
+            cloneObject.querySelector('.addGenre').parentNode.querySelector('select').name= 'genre['+Number(Number(genreName.slice(genreName.indexOf('[')+1,genreName.indexOf('[')+2))+1)+'][]'
+        }else{
+            console.log(7)
+            const imgName =cloneObject.querySelector('input[type="file"].sec-img').name
+            const genreName =cloneObject.querySelector('.addGenre').parentNode.querySelector('select').name
+            cloneObject.querySelector('input[type="file"].sec-img').name= 'images['+Number(Number(imgName.slice(imgName.indexOf('[')+1,imgName.indexOf('[')+2))+1)+'][]'
+            cloneObject.querySelector('.addGenre').parentNode.querySelector('select').name= 'genre['+Number(Number(genreName.slice(genreName.indexOf('[')+1,genreName.indexOf('[')+2))+1)+'][]'
+        }
     }
     content.append(cloneObject)
 }

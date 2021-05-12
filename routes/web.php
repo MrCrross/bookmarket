@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,16 +18,12 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('shop');
-})->name('shop');
-
+Route::get('/', [ShopController::class, 'index'])->name('shop');
+Route::get('/shop/{id}', [ShopController::class, 'show'])->name('shop.show');
 Route::group(['middleware' => ['auth']], function() {
     Route::get('products', [ProductController::class, 'index'])->name('products');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 });
-
-
 
 require __DIR__.'/auth.php';

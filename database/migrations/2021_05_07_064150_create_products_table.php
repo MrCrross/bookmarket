@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('price')->unsigned();
             $table->string('image')->unique();
             $table->year('year_release');
+            $table->text('description');
             $table->bigInteger('limit_id')->unsigned();
             $table->foreign('limit_id')
                 ->references('id')

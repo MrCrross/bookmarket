@@ -11306,6 +11306,14 @@ select {
   flex: 1 1 0%;
 }
 
+.flex-3 {
+  flex: 0 0 33.3333333333%;
+}
+
+.flex-4 {
+  flex: 0 0 0 1;
+}
+
 .flex-auto {
   flex: 1 1 auto;
 }
@@ -42659,6 +42667,14 @@ select {
     flex: 1 1 0%;
   }
 
+  .sm\:flex-3 {
+    flex: 0 0 33.3333333333%;
+  }
+
+  .sm\:flex-4 {
+    flex: 0 0 0 1;
+  }
+
   .sm\:flex-auto {
     flex: 1 1 auto;
   }
@@ -73840,6 +73856,14 @@ select {
 
   .md\:flex-1 {
     flex: 1 1 0%;
+  }
+
+  .md\:flex-3 {
+    flex: 0 0 33.3333333333%;
+  }
+
+  .md\:flex-4 {
+    flex: 0 0 0 1;
   }
 
   .md\:flex-auto {
@@ -105025,6 +105049,14 @@ select {
     flex: 1 1 0%;
   }
 
+  .lg\:flex-3 {
+    flex: 0 0 33.3333333333%;
+  }
+
+  .lg\:flex-4 {
+    flex: 0 0 0 1;
+  }
+
   .lg\:flex-auto {
     flex: 1 1 auto;
   }
@@ -136208,6 +136240,14 @@ select {
     flex: 1 1 0%;
   }
 
+  .xl\:flex-3 {
+    flex: 0 0 33.3333333333%;
+  }
+
+  .xl\:flex-4 {
+    flex: 0 0 0 1;
+  }
+
   .xl\:flex-auto {
     flex: 1 1 auto;
   }
@@ -167389,6 +167429,14 @@ select {
 
   .\32xl\:flex-1 {
     flex: 1 1 0%;
+  }
+
+  .\32xl\:flex-3 {
+    flex: 0 0 33.3333333333%;
+  }
+
+  .\32xl\:flex-4 {
+    flex: 0 0 0 1;
   }
 
   .\32xl\:flex-auto {
