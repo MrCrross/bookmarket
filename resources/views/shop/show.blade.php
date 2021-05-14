@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
+        @auth
+            @if($carts!=='[]')
+                <script>
+                    localStorage.setItem('carts',JSON.stringify(decodeHtml('{{$carts}}')))
+                </script>
+            @endif
+        @endauth
         @foreach($products as $product)
         <h2 class="flex flex-row w-full justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
             {{ __($product->name) }}
@@ -33,7 +40,8 @@
                         <span>{{$product->description}}</span>
                     </label>
                     <span>
-                        <x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
+                        <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                        <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
                     </span>
                 </div>
             </div>
@@ -47,6 +55,62 @@
         </div>
         @endforeach
     </x-slot>
+    @auth
+        @if(count($recom)!==0)
+        <div class="slider sliderRecom my-12 md:mx-12">
+            <div class="slider__container">
+                <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
+                    <h2 class="flex flex-row w-full justify-center font-semibold text-xl items-center text-gray-800 leading-tight">
+                        {{ __('Рекомендуем:') }}
+                    </h2>
+                    <div class="slider__items">
+                        @foreach($recom as $item)
+                            @foreach($item['products'] as $key=>$product)
+                                @if(count($item['products'])>0)
+                                    <div class="slider__item flex md:flex-auto justify-center items-top my-5 md:px-4 xl:px-0">
+                                        <div class="flex flex-col w-64">
+                                            <a href="/{{$product['id']}}">
+                                                <img class="h-96 w-full rounded-xl" src="{{asset('storage/'.$product['image'])}}" title="" alt="">
+                                            </a>
+                                            <label>
+                                        <span><a href="/shop/author/{{$item['id']}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200">
+                                                {{$item['last_name']." ".$item['initials']}}
+                                        </a></span>
+                                            </label>
+                                            <label>
+                                                <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product['id']}}"> Купить</x-btn></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($key === 9)
+                                    @break
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <a class="slider__control" data-slide="prev"></a>
+            <a class="slider__control" data-slide="next"></a>
+            <ol class="slider__indicators">
+                @foreach($recom as $keyR=>$item)
+                    @foreach($item['products'] as $key=>$product)
+                        @if(count($item['products'])===1)
+                            <li data-slide-to="{{++$keyR * ++$key}}"></li>
+                        @endif
+                        @if(count($item['products'])!==0)
+                            <li data-slide-to="{{++$keyR * ++$key}}"></li>
+                        @endif
+                        @if((++$keyR * ++$key) === 9)
+                            @break
+                        @endif
+                    @endforeach
+                @endforeach
+            </ol>
+        </div>
+        @endif
+    @endauth
     <div class="slider sliderGenre my-12 md:mx-12">
         <div class="slider__container">
             <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
@@ -72,7 +136,10 @@
                                             {{$genres[0]->name}}
                                             </a>
                                         </span>
-                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->product->id}}"> Купить</x-btn></span>
+                                        <span class="inline">
+                                            <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->product->id}}"> Купить</x-btn>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -124,7 +191,10 @@
                                             {{$authors[0]->last_name." ".$authors[0]->initials}}
                                             </a>
                                         </span>
-                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn></span>
+                                        <span class="inline">
+                                            <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -172,7 +242,10 @@
                                             {{$product->author->last_name." ".$product->author->initials}}
                                              </a>
                                         </span>
-                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn></span>
+                                        <span class="inline">
+                                            <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -201,7 +274,6 @@
         </ol>
     </div>
     @include('modal')
-    <script src="{{asset('js/cart.js')}}"></script>
     <script src="{{asset('js/img.js')}}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -212,6 +284,9 @@
                 loop: false,
             });
             new ChiefSlider('.sliderLimit', {
+                loop: false,
+            });
+            new ChiefSlider('.sliderRecom', {
                 loop: false,
             });
         });

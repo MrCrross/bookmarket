@@ -1,9 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\UserLog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +14,7 @@ use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
-
+    private $size = 15;
     /**
      * Display a listing of the resource.
      *
@@ -109,6 +112,9 @@ class UserController extends Controller
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));
+        if($request->lk){
+            return redirect()->route('lk');
+        }
         return redirect()->route('users.index')
                 ->with('success','User updated successfully');
     }
@@ -124,5 +130,35 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('users.index')
             ->with('success','User deleted successfully');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function lk(){
+        $id=Auth::user()->getAuthIdentifier();
+        $orders=Order::with('orders.product','status')->where('user_id',$id)->latest()->get();
+        $user = User::find($id);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
+        $logs =[];
+        if($user->can('logs-list')){
+            $logs = json_encode(UserLog::latest()->paginate($this->size));
+        }
+        return view('users.lk',compact('user','roles','userRole'),['orders'=>$orders,'logs'=>$logs]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function updatePersonal(Request $request){
+        User::where('id',$request->id)->update([
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
+            'father_name'=>$request->father_name,
+            'phone'=>$request->phone
+        ]);
+        return redirect()->route('lk');
     }
 }

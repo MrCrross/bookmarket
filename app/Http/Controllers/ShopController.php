@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Cart;
 use App\Models\Genre;
 use App\Models\Limit;
 use App\Models\Product;
@@ -28,13 +29,22 @@ class ShopController extends Controller
             foreach ($logs as $item){
                 array_push($ids,$item['product_id']);
             }
-            $recom=Author::with('products.carts')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
         }
-        $products =Product::with('genres.genre','limit','publisher','author','carts')->latest()->get();
-        $authors=Author::with('products.carts')->get();
-        $genres = Genre::with('products.product.author','products.product.carts')->get();
-        $limits = Limit::where('name','16+')->with('products.author','products.carts')->get();
-        return view('shop.index',['recom'=>$recom,'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits]);
+        $carts=[];
+        if($user){
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $products =Product::with('genres.genre','limit','publisher','author')->latest()->get();
+        $authors=Author::with('products')->get();
+        $genres = Genre::with('products.product.author')->get();
+        $limits = Limit::where('name','16+')->with('products.author')->get();
+        return view('shop.index',['recom'=>$recom,'carts'=>json_encode($carts),'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits]);
     }
 
     /**
@@ -43,42 +53,83 @@ class ShopController extends Controller
      */
     public function show($id){
         $user=Auth::user();
+        $recom = [];
+        $carts=[];
         if($user){
-            $log =ProductLog::where('user_id',$user->getAuthIdentifier())->where('product_id',$id)->get();
-            if(count($log)===0){
-                ProductLog::create([
-                    'product_id'=> $id,
-                    'user_id'=>$user->getAuthIdentifier()
-                ]);
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
             }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
         }
-        $products = Product::where('id',$id)->with('author','carts')->get();
-        $authors=Author::with('products.carts')->whereHas('products',function ($query) use ($id) {$query->where('id',$id);})->get();
-        $genres = Genre::with('products.product.author','products.product.carts')->whereHas('products',function ($query) use ($id) {$query->where('product_id',$id);})->get();
-        $limits = Limit::with('products.author','products.carts')->whereHas('products',function ($query) use ($id) {$query->where('id',$id);})->get();
-        return view('shop.show',['products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits]);
+        $products = Product::where('id',$id)->with('author')->get();
+        $authors=Author::with('products')->whereHas('products',function ($query) use ($id) {$query->where('id',$id);})->get();
+        $genres = Genre::with('products.product.author')->whereHas('products',function ($query) use ($id) {$query->where('product_id',$id);})->get();
+        $limits = Limit::with('products.author')->whereHas('products',function ($query) use ($id) {$query->where('id',$id);})->get();
+        return view('shop.show',['recom'=>$recom,'carts'=>json_encode($carts),'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits]);
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function shop(){
-        $news = Product::with('author','carts')->latest()->get();
-        $products = Product::with('genres.genre','limit','images','publisher','author','carts')->latest()->paginate($this->size);
+        $user=Auth::user();
+        $recom = [];
+        $carts=[];
+        if($user){
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
+            }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $news = Product::with('author')->latest()->get();
+        $products = Product::with('genres.genre','limit','images','publisher','author')->latest()->paginate($this->size);
         $authors=Author::all();
         $genres = Genre::all();
         $publishers = Publisher::all();
         $limits = Limit::all();
-        return view('shop.shop',['news'=>$news,'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits,'publishers'=>$publishers]);
+        return view('shop.shop',['recom'=>$recom,'carts'=>json_encode($carts),'news'=>$news,'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits,'publishers'=>$publishers]);
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function filter(Request $request){
-        $news = Product::with('author','carts')->latest()->get();
+        $user=Auth::user();
+        $recom = [];
+        $carts=[];
+        if($user){
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
+            }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $news = Product::with('author')->latest()->get();
         $products = new Product();
-        $products =$products->with('genres.genre','limit','publisher','author','carts');
+        $products =$products->with('genres.genre','limit','publisher','author');
         if(isset($request->author)){
             $products =$products->whereHas('author',function ($query) use ($request) {
                 $query->whereIn('id',$request->author);
@@ -104,7 +155,7 @@ class ShopController extends Controller
         $genres = Genre::all();
         $publishers = Publisher::all();
         $limits = Limit::all();
-        return view('shop.shop',['news'=>$news,'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits,'publishers'=>$publishers]);
+        return view('shop.shop',['recom'=>$recom,'carts'=>json_encode($carts),'news'=>$news,'products'=>$products,'authors'=>$authors,'genres'=>$genres,'limits'=>$limits,'publishers'=>$publishers]);
     }
 
     /**
@@ -112,51 +163,119 @@ class ShopController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function author($id){
-        $news = Product::with('author','carts')->latest()->get();
-        $products = Product::with('genres.genre','limit','publisher','author','carts')
+        $user=Auth::user();
+        $recom = [];
+        $carts=[];
+        if($user){
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
+            }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $news = Product::with('author')->latest()->get();
+        $products = Product::with('genres.genre','limit','publisher','author')
             ->whereHas('author',function ($query) use ($id) {
                 $query->where('id',$id);
             })
             ->latest()->paginate($this->size);
-        return view('shop.author',['news'=>$news,'products'=>$products]);
+        return view('shop.author',['recom'=>$recom,'carts'=>json_encode($carts),'news'=>$news,'products'=>$products]);
     }
     /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function publisher($id){
-        $news = Product::with('author','carts')->latest()->get();
-        $products = Product::with('genres.genre','limit','publisher','author','carts')
+        $user=Auth::user();
+        $recom = [];
+        $carts=[];
+        if($user){
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
+            }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $news = Product::with('author')->latest()->get();
+        $products = Product::with('genres.genre','limit','publisher','author')
             ->whereHas('publisher',function ($query) use ($id) {
                 $query->where('id',$id);
             })
             ->latest()->paginate($this->size);
-        return view('shop.publisher',['news'=>$news,'products'=>$products]);
+        return view('shop.publisher',['recom'=>$recom,'carts'=>json_encode($carts),'news'=>$news,'products'=>$products]);
     }
     /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function genre($id){
-        $news = Product::with('author','carts')->latest()->get();
-        $products = Product::with('genres.genre','limit','publisher','author','carts')
+        $user=Auth::user();
+        $recom = [];
+        $carts=[];
+        if($user){
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
+            }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $news = Product::with('author')->latest()->get();
+        $products = Product::with('genres.genre','limit','publisher','author')
             ->whereHas('genres.genre',function ($query) use ($id) {
                 $query->where('id',$id);
             })
             ->latest()->paginate($this->size);
-        return view('shop.genre',['news'=>$news,'products'=>$products]);
+        return view('shop.genre',['recom'=>$recom,'carts'=>json_encode($carts),'news'=>$news,'products'=>$products]);
     }
     /**
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function limit($id){
-        $news = Product::with('author','carts')->latest()->get();
-        $products = Product::with('genres.genre','limit','publisher','author','carts')
+        $user=Auth::user();
+        $recom = [];
+        $carts=[];
+        if($user){
+            $logs =ProductLog::where('user_id',$user->getAuthIdentifier())->select('product_id')->get()->toArray();
+            $ids=[];
+            foreach ($logs as $item){
+                array_push($ids,$item['product_id']);
+            }
+            $recom=Author::with('products')->whereHas('products',function ($query) use ($ids) {$query->whereIn('id',$ids);})->get()->toArray();
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    "product_id"=>$item['product_id'],
+                    "count"=>$item['count']
+                ]);
+            };
+        }
+        $news = Product::with('author')->latest()->get();
+        $products = Product::with('genres.genre','limit','publisher','author')
             ->whereHas('limit',function ($query) use ($id) {
                 $query->where('id',$id);
             })
             ->latest()->paginate($this->size);
-        return view('shop.limit',['news'=>$news,'products'=>$products]);
+        return view('shop.limit',['recom'=>$recom,'carts'=>json_encode($carts),'news'=>$news,'products'=>$products]);
     }
 }

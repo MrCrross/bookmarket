@@ -34,10 +34,6 @@ class Product extends Model
         return $this->hasMany(ProductLog::class);
     }
 
-    public function carts(){
-        return $this->hasMany(Cart::class);
-    }
-
     public function limit(){
         return $this->belongsTo(Limit::class);
     }

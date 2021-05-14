@@ -1,5 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
+        @auth
+            @if($carts!=='[]')
+                <script>
+                    localStorage.setItem('carts',JSON.stringify(decodeHtml('{{$carts}}')))
+                </script>
+            @endif
+        @endauth
         <div class="slider sliderHead">
             <div class="slider__container">
                 <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
@@ -37,8 +44,8 @@
                                             <span>{{$product->description}}</span>
                                         </label>
                                         <label>
-                                            <x-btn body="info" class="mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
-                                            <x-btn body="success" class="px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
                                         </label>
                                     </div>
                                 </div>
@@ -67,7 +74,8 @@
                                         @endforeach
                                     </label>
                                     <span>
-                                        <x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
+                                        <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                        <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
                                     </span>
                                 </div>
                             </div>
@@ -95,6 +103,7 @@
         </div>
     </x-slot>
     @auth
+        @if(count($recom)!==0)
         <div class="slider sliderRecom my-12 md:mx-12">
             <div class="slider__container">
                 <div class="slider__wrapper bg-gradient-to-r from-blue-100 to-pink-100 rounded-xl py-3">
@@ -147,6 +156,7 @@
                 @endforeach
             </ol>
         </div>
+        @endif
     @endauth
     <div class="py-5 md:px-12 mx-auto block md:flex flex-row justify-between items-center">
         <div class="slider sliderGenre mt-4 w-full md:mt-0 md:w-1/2 mr-2">
@@ -172,7 +182,10 @@
                                         <span class="inline">
                                             <a href="/shop/genre/{{$genre->id}}" class="border-2 border-t-0 border-l-0 border-r-0 border-blue-200"> {{$genre->name}}</a>
                                         </span>
-                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$genre->products[count($genre->products)-1]->product->id}}"> Купить</x-btn></span>
+                                        <span class="inline">
+                                            <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$genre->products[count($genre->products)-1]->product->id}}"> Купить</x-btn>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -220,7 +233,10 @@
                                                 {{$author->last_name." ".$author->initials}}
                                              </a>
                                         </span>
-                                        <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$author->products[count($author->products)-1]->id}}"> Купить</x-btn></span>
+                                        <span class="inline">
+                                            <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                            <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$author->products[count($author->products)-1]->id}}"> Купить</x-btn>
+                                        </span>
                                     </label>
                                 </div>
                             </div>
@@ -269,7 +285,10 @@
                                             {{$product->author->last_name." ".$product->author->initials}}
                                         </a>
                                     </span>
-                                    <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn></span>
+                                    <span class="inline">
+                                        <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                        <x-btn body="info" type="submit" class="cartBuy mt-2 px-1 py-1" data-id="{{$product->id}}"> Купить</x-btn>
+                                    </span>
                                 </label>
                             </div>
                         </div>
@@ -297,7 +316,6 @@
             @endforeach
         </ol>
     </div>
-    <script src="{{asset('js/cart.js')}}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             new ChiefSlider('.sliderHead', {

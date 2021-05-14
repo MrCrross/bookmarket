@@ -4,43 +4,76 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Models\UserLog;
 use App\Models\ProductLog;
+use App\Models\UserLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function show($id){
-        $products = Product::where('id',$id)->with('genres.genre','limit','images','publisher','author')->get();
-        return view('shop.show',['products'=>$products]);
-    }
-    public function create(Request $request){
-        $user =Auth::user();
-        DB::beginTransaction();
-        try{
-            Cart::create([
-                'product_id'=>$request->id,
-                'user_id'=>$user->getAuthIdentifier(),
-            ]);
-            ProductLog::create([
-                'user_id'=>$user->getAuthIdentifier(),
-                'product_id'=>$request->id
-            ]);
-            UserLog::create([
-                'user_id'=>$user->getAuthIdentifier(),
-                'actions'=>'Added product: '.Product::where('id',$request->id)->select('name')->get()[0]->name.' to cart'
-            ]);
-            DB::commit();
-        }catch (\Throwable $e){
-            DB::rollBack();
-            return response()->json('Error: '.$e);
+    //
+    public function index(Request $request)
+    {
+        $user=Auth::user();
+        $carts=[];
+        $data=[];
+        if($user){
+            foreach(Cart::where('user_id',$user->getAuthIdentifier())->select('product_id','count')->get()->toArray() as $item){
+                array_push($carts,[
+                    'product_id'=>$item['product_id'],
+                    'count'=>$item['count']
+                ]);
+            };
+            foreach ($carts as $cart){
+                array_push($data,$cart['product_id']);
+            }
+        }else{
+            $carts = json_decode($request->products);
+            foreach (json_decode($request->products) as $cart){
+                array_push($data,$cart->product_id);
+            }
         }
+        $products =Product::with('author','genres.genre','publisher')->whereIn('id',$data)->get();
+        return view('shop.cart',['carts'=>json_encode($carts),'products'=>$products]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(Request $request)
+    {
+        $user =Auth::user();
+        Cart::create([
+            'product_id' => $request->productId,
+            'user_id' => $user->getAuthIdentifier(),
+            'count' => $request->count
+        ]);
+        return response()->json('OK');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $user =Auth::user();
+        Cart::where('product_id',$request->productId)
+            ->where('user_id',$user->getAuthIdentifier())
+            ->update([
+                'count' => $request->count
+            ]);
+        return response()->json('OK');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request){
+        Cart::where('user_id',$request->user_id)->delete();
         return response()->json('OK');
     }
 }

@@ -22,6 +22,7 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
+            <script src="{{asset('js/decodeHTML.js')}}"></script>
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
@@ -33,7 +34,7 @@
                 {{ $slot }}
             </main>
         </div>
-
+        <script src="{{ asset('js/cart.js') }}"></script>
         <script src="{{ asset('js/hystmodal.min.js') }}"></script>
         <script src="{{ asset('js/modal.js') }}" defer></script>
         <script src="{{ asset('js/chief-slider.min.js') }}"></script>

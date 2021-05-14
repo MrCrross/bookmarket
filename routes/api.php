@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\GenreController;
-use App\Http\Controllers\ShopController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +22,28 @@ use App\Http\Controllers\ShopController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Добавлеине корзины в базу
+Route::middleware('auth')
+    ->post('/cart',[CartController::class, 'create']);
+//Обновление корзины в базе
+Route::middleware('auth')
+    ->post('/cart/update',[CartController::class, 'update']);
+//Удаление корзины
+Route::middleware('auth')
+    ->post('/cart/clear',[CartController::class, 'destroy']);
+//Добавление заказа в базу
+Route::middleware('auth')
+    ->post('/order',[OrderController::class, 'create'])->name('order');
+//Изменение заказа в базе
+Route::middleware('permission:order-edit')
+    ->patch('/order/update',[OrderController::class, 'update']);
+//Обновлеине личных данных пользователя
+Route::middleware('auth')
+    ->patch('/user/lk/update',[UserController::class, 'updatePersonal']);
+//    Удалить логи
+Route::middleware('permission:logs-delete')
+    ->delete('/',[LogController::class, 'destroy']);
+
 //Действия с автором
 Route::group(['prefix'=>'author'],function(){
     // Добавление автора

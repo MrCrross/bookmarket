@@ -107,6 +107,7 @@ class CreatePermissionTables extends Migration
             'publisher-create',
             'publisher-edit',
             'publisher-delete',
+            'order-edit',
             'logs-list',
             'logs-delete',
             'role-list',
@@ -130,6 +131,11 @@ class CreatePermissionTables extends Migration
         $rolePermissions = Permission::pluck('id','id')->all();
         $role->syncPermissions($rolePermissions);
         $user->assignRole([$role->id]);
+        User::create([
+            'name' => 'user',
+            'email' => 'user@mail.com',
+            'password' => bcrypt('root')
+        ]);
     }
 
     /**
