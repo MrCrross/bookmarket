@@ -28,6 +28,9 @@ Route::middleware('auth')
 //Обновление корзины в базе
 Route::middleware('auth')
     ->post('/cart/update',[CartController::class, 'update']);
+//Удаление продукта из заказа в базе
+Route::middleware('auth')
+    ->post('/cart/delete',[CartController::class, 'delete']);
 //Удаление корзины
 Route::middleware('auth')
     ->post('/cart/clear',[CartController::class, 'destroy']);
@@ -43,7 +46,6 @@ Route::middleware('auth')
 //    Удалить логи
 Route::middleware('permission:logs-delete')
     ->delete('/',[LogController::class, 'destroy']);
-
 //Действия с автором
 Route::group(['prefix'=>'author'],function(){
     // Добавление автора

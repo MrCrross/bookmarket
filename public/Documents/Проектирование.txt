@@ -1,0 +1,8 @@
+https://app.diagrams.net/#G1U0nLRoZGYhIlNJMzvKm1wGzLGL53BWRU - база данных
+https://wireframe.cc/7hVBlO - вход
+https://wireframe.cc/tXv6V1 - регистрация
+https://wireframe.cc/fEos1p - обзор
+https://wireframe.cc/nb9NAV - магазин
+https://wireframe.cc/4miRwA - корзина
+https://wireframe.cc/Xk278C - продукты
+https://wireframe.cc/Eqy2w8 - заказы

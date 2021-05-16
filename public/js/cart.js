@@ -54,6 +54,24 @@ function ajaxUpdate(productId, count=1)
     })
 }
 
+function ajaxRemove(productId)
+{
+    const token= document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    fetch('/api/cart/delete',{
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-Token": token
+        },
+        method: "POST",
+        credentials: "same-origin",
+        body: JSON.stringify({
+            productId: productId,
+        })
+    })
+}
+
 function cartHandler(e){
     const product= e.target.dataset.id
     const carts= localStorage.getItem('carts')
@@ -114,11 +132,32 @@ function cartSubmitHandler(e){
     e.target.submit()
 }
 
+function cartDeleteHandler(e){
+    const product = e.target.dataset.id
+    const carts= localStorage.getItem('carts')
+    let data = []
+    if(carts){
+        if(carts.indexOf('\\"product_id\\":'+product)===-1
+            && carts.indexOf('\\"product_id\\":'+'\\"'+product+'\\"')===-1) {
+            data = JSON.parse(JSON.parse(carts))
+            data.forEach(function (el,key ){
+                if(el.product_id ===product){
+                    data.splice(key,1)
+                    return
+                }
+            })
+            localStorage.setItem('carts',JSON.stringify(JSON.stringify(data)))
+            if(window.isLogin!=='0') ajaxRemove(product)
+        }
+    }
+}
+
 function init(){
     const cartBtns = document.querySelectorAll('.cartBuy')
     const navCart = document.querySelectorAll('.navCart')
     const count = document.querySelectorAll('input[name="count[]"]')
     const cartForm = document.querySelector('#cartForm')
+    const cartDelete = document.querySelector('.deleteCart')
     const cart = localStorage.getItem('carts')
     if(navCart.length!==0){
         navCart.forEach(function (item){
@@ -158,6 +197,7 @@ function init(){
     }
     if(cartForm){
         cartForm.addEventListener('submit',cartSubmitHandler)
+        cartDelete.addEventListener('click',cartDeleteHandler)
     }
 }
 

@@ -76,4 +76,13 @@ class CartController extends Controller
         Cart::where('user_id',$request->user_id)->delete();
         return response()->json('OK');
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Request $request){
+        Cart::where('user_id',Auth::user()->getAuthIdentifier())->where('product_id',$request->productId)->delete();
+        return response()->json('OK');
+    }
 }

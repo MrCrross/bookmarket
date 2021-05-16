@@ -49,6 +49,9 @@
                             <span>Итого:</span>
                             <span class="price">{{$product->price}} руб.</span>
                         </div>
+                        <div class="mx-3 p-2 my-3 md:my-0 flex flex-col items-center justify-center">
+                            <x-btn body="danger" class="deleteCart" data-id="{{$product->id}}">x</x-btn>
+                        </div>
                     </div>
                 </div>
             @endforeach
