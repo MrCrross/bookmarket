@@ -127,9 +127,13 @@ function calcToPay(){
 
 function cartSubmitHandler(e){
     e.preventDefault()
-    localStorage.removeItem('carts')
-    ajaxClearCart(window.isLogin)
-    e.target.submit()
+    if(window.isLogin!=='0'){
+        localStorage.removeItem('carts')
+        ajaxClearCart(window.isLogin)
+        e.target.submit()
+    }else{
+        location.href='/login'
+    }
 }
 
 function cartDeleteHandler(e){
