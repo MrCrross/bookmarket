@@ -137,8 +137,8 @@ function cartDeleteHandler(e){
     const carts= localStorage.getItem('carts')
     let data = []
     if(carts){
-        if(carts.indexOf('\\"product_id\\":'+product)===-1
-            && carts.indexOf('\\"product_id\\":'+'\\"'+product+'\\"')===-1) {
+        if(carts.indexOf('\\"product_id\\":'+product)!==-1
+            || carts.indexOf('\\"product_id\\":'+'\\"'+product+'\\"')!==-1) {
             data = JSON.parse(JSON.parse(carts))
             data.forEach(function (el,key ){
                 if(el.product_id ===product){
@@ -149,6 +149,8 @@ function cartDeleteHandler(e){
             localStorage.setItem('carts',JSON.stringify(JSON.stringify(data)))
             if(window.isLogin!=='0') ajaxRemove(product)
         }
+        const navCart = document.querySelector('.navCart')
+        navCart.parentNode.submit()
     }
 }
 
@@ -197,6 +199,8 @@ function init(){
     }
     if(cartForm){
         cartForm.addEventListener('submit',cartSubmitHandler)
+    }
+    if(cartDelete){
         cartDelete.addEventListener('click',cartDeleteHandler)
     }
 }
