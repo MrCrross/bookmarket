@@ -39,4 +39,4 @@ Route::group(['middleware' => ['auth']], function() {
 
 require __DIR__.'/auth.php';
 
-Route::get('/shop/product/{id}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/{id}', [ShopController::class, 'show'])->name('shop.show');
