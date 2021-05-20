@@ -145,13 +145,14 @@ function cartDeleteHandler(e){
             || carts.indexOf('\\"product_id\\":'+'\\"'+product+'\\"')!==-1) {
             data = JSON.parse(JSON.parse(carts))
             data.forEach(function (el,key ){
-                if(el.product_id ===product){
+                if(el.product_id ==product){
                     data.splice(key,1)
                     return
                 }
             })
             localStorage.setItem('carts',JSON.stringify(JSON.stringify(data)))
             if(window.isLogin!=='0') ajaxRemove(product)
+
         }
         const navCart = document.querySelector('.navCart')
         navCart.parentNode.submit()
