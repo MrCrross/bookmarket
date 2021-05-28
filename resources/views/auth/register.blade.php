@@ -16,7 +16,7 @@
             <div>
                 <x-label for="phone" :value="__('Телефон')" />
 
-                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus placeholder="Телефон"/>
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" maxLength="11" minLength="11" required autofocus placeholder="Телефон"/>
             </div>
 
             <!-- Name -->
