@@ -86,7 +86,10 @@
                                         </a></span>
                                                 </label>
                                                 <label>
-                                                    <span class="inline"><x-btn body="info" class="cart mt-2 px-1 py-1" data-id="{{$product['id']}}"> Купить</x-btn></span>
+                                                    <span class="inline">
+                                                        <x-btn body="success" class="cart mt-2 px-1 py-1 hidden"> В корзине</x-btn>
+                                                        <x-btn body="info" class="cartBuy mt-2 px-1 py-1" data-id="{{$product['id']}}"> Купить</x-btn>
+                                                    </span>
                                                 </label>
                                             </div>
                                         </div>

@@ -34,7 +34,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @guest
-                        {{Form::open(['route'=>'cart','method'=>'POST'])}}
+                        {{Form::open(['route'=>'cart','method'=>'GET'])}}
                         <input type="text" name="products" value="[]" class="hidden">
                         <x-nav-submit :active="request()->routeIs('cart')" class="navCart">
                            {{ __('Корзина') }}
@@ -63,7 +63,7 @@
                         </x-dropdown>
                     @endguest
                     @auth
-                        {{Form::open(['route'=>'cart','method'=>'POST'])}}
+                        {{Form::open(['route'=>'cart','method'=>'GET'])}}
                             <input type="text" name="products" value="[]" class="hidden">
                             <x-nav-submit :active="request()->routeIs('cart')" class="navCart">
                                 {{ __('Корзина') }}
@@ -146,7 +146,7 @@
             <x-responsive-nav-link :href="route('shop.shop')" :active="request()->routeIs('shop.shop')">
                 {{ __('Магазин') }}
             </x-responsive-nav-link>
-            {{Form::open(['route'=>'cart','method'=>'POST'])}}
+            {{Form::open(['route'=>'cart','method'=>'GET'])}}
                 <input type="text" name="products" value="[]" class="hidden">
                 <x-responsive-nav-submit :active="request()->routeIs('cart')" class="navCart">
                     {{ __('Корзина') }}

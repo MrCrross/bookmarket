@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Models\ProductLog;
-use App\Models\UserLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -25,8 +22,14 @@ class CartController extends Controller
                     'count'=>$item['count']
                 ]);
             };
-            foreach ($carts as $cart){
-                array_push($data,$cart['product_id']);
+            if(isset($request->products)){
+                foreach (json_decode($request->products) as $cart){
+                    array_push($data,$cart->product_id);
+                }
+            }else{
+                foreach ($carts as $cart){
+                    array_push($data,$cart['product_id']);
+                }
             }
         }else{
             $carts = json_decode($request->products);

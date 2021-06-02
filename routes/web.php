@@ -27,7 +27,7 @@ Route::get('/shop/author/{id}', [ShopController::class, 'author'])->name('shop.a
 Route::get('/shop/publisher/{id}', [ShopController::class, 'publisher'])->name('shop.publisher');
 Route::get('/shop/limit/{id}', [ShopController::class, 'limit'])->name('shop.limit');
 Route::get('/shop/genre/{id}', [ShopController::class, 'genre'])->name('shop.genre');
-Route::post('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('user/lk', [UserController::class, 'lk'])->name('lk');

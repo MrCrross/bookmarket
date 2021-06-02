@@ -152,7 +152,7 @@
                         <span class="font-semibold italic text-purple-400">№: </span>
                         <span>{{$order->id}}</span>
                     </div>
-                    <div class="flex flex-col border-l-2 border-r-2 px-5 border-gray-400">
+                    <div class="flex flex-col mx-5 border-gray-400">
                         @foreach($order->orders as $product)
                             <div class="flex flex-row">
                                 <label class="mr-3">
@@ -193,8 +193,8 @@
             </div>
             @foreach($logs->data as $log)
             <div class="flex flex-col w-full border-2 border-gray-300 rounded-xl mt-3">
-                <div class="ml-5 my-2 md:ml-0 md:flex flex-row justify-between items-center">
-                    <label class="ml-5">
+                <div class="px-2 py-2 md:ml-0 md:flex flex-row justify-between items-center">
+                    <label>
                         <span class="font-semibold italic text-purple-400">Действие: </span>
                         <span class="actionLog">{{$log->actions}}</span>
                     </label>
@@ -203,7 +203,7 @@
                         <span class="dateLog">{{$log->created_at}}</span>
                     </label>
                     @can('logs-delete')
-                        <label class="mr-5">
+                        <label>
                             {{Form::open(['action'=>'App\Http\Controllers\LogController@destroy','method'=>'delete'])}}
                             <input type="text" name="id[]" value="{{$log->id}}" class="hidden">
                             <x-btn body="danger" type="submit" >Удалить</x-btn>

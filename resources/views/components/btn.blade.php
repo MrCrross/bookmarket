@@ -8,7 +8,7 @@
             $color['focus']='focus:border-red-900';
             $color['active']='active:bg-red-800';
             $color['ring']='ring-red-600';
-            $color['text']='text-black';
+            $color['text']='text-white';
             break;
         case 'success':
             $color['bg']='bg-green-600';

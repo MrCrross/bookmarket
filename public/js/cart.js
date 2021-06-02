@@ -139,6 +139,7 @@ function cartSubmitHandler(e){
 function cartDeleteHandler(e){
     const product = e.target.dataset.id
     const carts= localStorage.getItem('carts')
+    const navCart = document.querySelectorAll('.navCart')
     let data = []
     if(carts){
         if(carts.indexOf('\\"product_id\\":'+product)!==-1
@@ -150,12 +151,14 @@ function cartDeleteHandler(e){
                     return
                 }
             })
+            navCart.forEach(function (item){
+                item.parentNode.querySelector('input[name="products"]').value =JSON.stringify(data)
+                item.innerHTML='Корзина '+data.length
+            })
             localStorage.setItem('carts',JSON.stringify(JSON.stringify(data)))
             if(window.isLogin!=='0') ajaxRemove(product)
-
         }
-        const navCart = document.querySelector('.navCart')
-        navCart.parentNode.submit()
+        navCart[0].parentNode.submit()
     }
 }
 

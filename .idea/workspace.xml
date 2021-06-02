@@ -4,9 +4,20 @@
     <list default="true" id="3f64f1c6-b8e7-4559-a5d0-f774f73d657b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CartController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/Documents/Пояснительная записка.docx" beforeDir="false" afterPath="$PROJECT_DIR$/public/Documents/Пояснительная записка.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Documents/Схема проектирование.vsdx" beforeDir="false" afterPath="$PROJECT_DIR$/public/Documents/Схема проектирование.vsdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Documents/Тех задание.docx" beforeDir="false" afterPath="$PROJECT_DIR$/public/Documents/Тех задание.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/components/btn.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/btn.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navigation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navigation.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/author.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/author.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/genre.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/genre.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/limit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/limit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/publisher.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/publisher.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/shop.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/shop.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/shop/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/shop/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/users/lk.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/lk.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +198,9 @@
       <workItem from="1621501138275" duration="2218000" />
       <workItem from="1621948705886" duration="687000" />
       <workItem from="1621990433616" duration="2465000" />
-      <workItem from="1622089859968" duration="3280000" />
+      <workItem from="1622089859968" duration="3876000" />
+      <workItem from="1622453536377" duration="2531000" />
+      <workItem from="1622600874190" duration="5961000" />
     </task>
     <servers />
   </component>
